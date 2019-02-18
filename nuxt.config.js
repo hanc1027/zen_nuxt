@@ -50,7 +50,10 @@ module.exports = {
       { src: "js/jquery.autogrow-textarea.js" },
       { src: "js/jquery.uploadify-3.1.min.js" },
       { src: "js/jquery.history.js" },
-      { src: "js/charisma.js" }
+      { src: "js/charisma.js" },
+      //connect firebase
+      { src: "https://www.gstatic.com/firebasejs/5.7.3/firebase.js"},
+      { src: "js/init_firebase.js"}
     ]
   },
 
