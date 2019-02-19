@@ -17,7 +17,7 @@
       <div class="btn-group pull-right">
         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <i class="glyphicon glyphicon-user"></i>
-          <span class="hidden-sm hidden-xs">{{admin_list[0].username}}</span>
+          <span class="hidden-sm hidden-xs">{{admin_list.username}}</span>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
