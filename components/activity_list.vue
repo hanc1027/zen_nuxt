@@ -132,13 +132,14 @@
 </template>
 
 <script>
+
 const listRef = firebase.database().ref("/activity_list/");
 
 export default {
   name: "activity_list",
   data() {
     return {
-      activity_list: []
+      activity_list: {}
     };
   },
   methods: {

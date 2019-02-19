@@ -17,7 +17,7 @@
       <div class="btn-group pull-right">
         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <i class="glyphicon glyphicon-user"></i>
-          <span class="hidden-sm hidden-xs">{{admin_list.username}}</span>
+          <span class="hidden-sm hidden-xs">{{admin_list[0].username}}</span>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -45,35 +45,23 @@
 </template>
 
 <script>
+const admRef = firebase.database().ref("/admin_member/");
 export default {
   data() {
     return {
-      admin_list: {
-        name: "",
-        username: "",
-        cadre: "",
-        group1: "",
-        group2: ""
-      }
+      admin_list: {}
     };
   },
   methods: {
-    call_data() {
-      const axios = require("axios");
-
-      var req = "http://localhost:3000/admin_member/1";
-
-      axios.get(req).then(res => {
-        (this.admin_list.name = res.data.name),
-          (this.admin_list.username = res.data.username),
-          (this.admin_list.cadre = res.data.cadre),
-          (this.admin_list.group1 = res.data.group1),
-          (this.admin_list.group2 = res.data.group2);
+     show(){
+     let show_item = this;
+      admRef.on("value", function(data) {
+        show_item.admin_list = data.val();
       });
     }
   },
   mounted() {
-    this.call_data();
+    this.show();
   }
 };
 </script>
