@@ -45,7 +45,8 @@
 </template>
 
 <script>
-const admRef = firebase.database().ref("/admin_member/");
+const admRef = firebase.database().ref("/admin_member/0");
+
 export default {
   data() {
     return {
