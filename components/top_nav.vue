@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <nuxt-link to="@/pages/app" class="navbar-brand">
+      <nuxt-link to="#" class="navbar-brand">
         <img alt="ZenJoy Logo" src="img/logo.jpg" class="hidden-xs">
         <span>中區禪悅社</span>
       </nuxt-link>

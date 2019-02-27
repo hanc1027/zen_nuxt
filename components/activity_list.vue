@@ -49,19 +49,22 @@
                             rules="ALL"
                           >
                             <tr>
-                              <th width="13%" bgcolor="#CCCCCC">
+                              <th width="10%" bgcolor="#CCCCCC">
+                                <p></p>
+                              </th>
+                              <th width="15%" bgcolor="#CCCCCC">
                                 <p>活動名稱</p>
                               </th>
-                              <th width="13%" bgcolor="#CCCCCC">
+                              <th width="15%" bgcolor="#CCCCCC">
                                 <p>活動地點</p>
                               </th>
-                              <th width="13%" bgcolor="#CCCCCC">
+                              <th width="15%" bgcolor="#CCCCCC">
                                 <p>活動日期</p>
                               </th>
-                              <th width="13%" bgcolor="#CCCCCC">
+                              <th width="15%" bgcolor="#CCCCCC">
                                 <p>開始時間</p>
                               </th>
-                              <th width="13%" bgcolor="#CCCCCC">
+                              <th width="15%" bgcolor="#CCCCCC">
                                 <p>結束時間</p>
                               </th>
                               <th width="10%" bgcolor="#CCCCCC">
@@ -71,21 +74,25 @@
 
                             <tr v-for="actli in activity_list">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
+                                <p>修改<br>
+                                刪除</p>
+                              </td>
+                              <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.name}}</p>
                               </td>
-                              <td width="13%" align="center" bgcolor="#FFFFFF">
+                              <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.place}}</p>
                               </td>
-                              <td width="13%" align="center" bgcolor="#FFFFFF">
+                              <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.date}}</p>
                               </td>
-                              <td width="13%" align="center" bgcolor="#FFFFFF">
+                              <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.start_time}}</p>
                               </td>
-                              <td width="13%" align="center" bgcolor="#FFFFFF">
+                              <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.end_time}}</p>
                               </td>
-                              <td width="13%" align="center" bgcolor="#FFFFFF">
+                              <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.who_add}}</p>
                               </td>
                             </tr>
@@ -132,7 +139,6 @@
 </template>
 
 <script>
-
 const listRef = firebase.database().ref("/activity_list/");
 
 export default {
