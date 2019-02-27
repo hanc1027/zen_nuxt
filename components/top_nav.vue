@@ -45,7 +45,7 @@
 </template>
 
 <script>
-const admRef = firebase.database().ref("/admin_member/0");
+// const admRef = firebase.database().ref("/admin_member/0");
 
 export default {
   data() {
@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted() {
-    this.show();
+    // this.show();
   }
 };
 </script>
