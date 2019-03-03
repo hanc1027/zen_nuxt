@@ -38,7 +38,7 @@ export default {
         .catch(e => console.log(e))
 
      alert("會議已新增！")
-     this.$router.push("/meeting-signature")
+     this.$router.push({path:"/home"})
     }
   }
 };

@@ -74,9 +74,11 @@
 
                             <tr v-for="actli in activity_list">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
-                                <p>修改
-                                  <br>刪除
-                                </p>
+                                 <center>
+                                    <p>修改
+                                      <br>刪除
+                                    </p>
+                                  </center>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.name}}</p>

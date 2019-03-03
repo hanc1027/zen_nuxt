@@ -42,29 +42,31 @@
                           >
                             <tr>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>簽到</p>
+                                <center><p>簽到</p></center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>會議名稱</p>
+                                <center><p>會議名稱</p></center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>會議地點</p>
+                               <center> <p>會議地點</p></center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>會議日期</p>
+                                <center><p>會議日期</p></center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>開始時間</p>
+                                <center><p>開始時間</p></center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <p>結束時間</p>
+                                <center><p>結束時間</p></center>
                               </th>
                             </tr>
 
-                            <tr v-for="meetinglist in meeting_list">
+                            <tr v-for="(meetinglist,key) in meeting_list" :id="key">
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                  <center></center>
+                                  <center>
+                                    <button class="btn btn-danger btn-sm"><font color="white">簽到</font></button>
+                                  </center>
                                 </p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
@@ -94,7 +96,7 @@
                           >
                             <tr>
                               <td valign="middle">
-                                <p>會議總數：</p>
+                                <p>會議總數：{{meeting_list_len}}</p>
                               </td>
                               <td align="right">
                                 <p>
@@ -125,25 +127,31 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      meeting_list_len:Number
+    };
   },
   layout: "fun_page",
   asyncData(context) {
-    return axios.get("https://zen-nuxt.firebaseio.com/meeting_list.json")
+    return axios
+      .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
       .then(res => {
         return {
           meeting_list: res.data
         };
       })
       .catch(e => context.error(e));
+  },
+  mounted(){
+      this.meeting_list_len =  Object.keys(this.meeting_list).length
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>
