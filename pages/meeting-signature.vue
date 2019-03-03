@@ -61,26 +61,26 @@
                               </th>
                             </tr>
 
-                            <tr>
+                            <tr v-for="meetinglist in meeting_list">
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <center></center>
                                 </p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meetinglist.name}}</p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meetinglist.place}}</p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meetinglist.date}}</p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meetinglist.start_time}}</p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meetinglist.end_time}}</p>
                               </td>
                             </tr>
                           </table>
@@ -125,12 +125,23 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   name: "app",
   data() {
     return {};
   },
-  layout: "fun_page"
+  layout: "fun_page",
+  asyncData(context) {
+    return axios.get("https://zen-nuxt.firebaseio.com/meeting_list.json")
+      .then(res => {
+        return {
+          meeting_list: res.data
+        };
+      })
+      .catch(e => context.error(e));
+  }
 };
 </script>
 

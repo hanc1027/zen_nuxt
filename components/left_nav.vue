@@ -59,10 +59,10 @@
             </a>
             <ul class="nav nav-pills nav-stacked">
               <li>
-                <a href="activity-enroll.php">&nbsp;&nbsp;&nbsp;活動報名系統</a>
+                <nuxt-link to="activity-enroll">&nbsp;&nbsp;&nbsp;活動報名系統</nuxt-link>
               </li>
               <li>
-                <a href="plan-car.php">&nbsp;&nbsp;&nbsp;派車系統</a>
+                <a href="plan-car">&nbsp;&nbsp;&nbsp;派車系統</a>
               </li>
             </ul>
           </li>
@@ -74,10 +74,10 @@
             </a>
             <ul class="nav nav-pills nav-stacked">
               <li>
-                <a href="register.php">&nbsp;&nbsp;&nbsp;註冊系統</a>
+                <a href="register">&nbsp;&nbsp;&nbsp;註冊系統</a>
               </li>
               <li>
-                <a href="account.php">&nbsp;&nbsp;&nbsp;帳號管理</a>
+                <a href="account">&nbsp;&nbsp;&nbsp;帳號管理</a>
               </li>
             </ul>
           </li>

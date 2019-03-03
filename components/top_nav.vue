@@ -17,12 +17,12 @@
       <div class="btn-group pull-right">
         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <i class="glyphicon glyphicon-user"></i>
-          <span class="hidden-sm hidden-xs">{{admin_list.username}}</span>
+          <span class="hidden-sm hidden-xs">{{adm_username}}</span>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li>
-            <a href="#">個人資料</a>
+            <nuxt-link to="/profile">個人資料</nuxt-link>
           </li>
           <li class="divider"></li>
           <li>
@@ -45,24 +45,26 @@
 </template>
 
 <script>
-// const admRef = firebase.database().ref("/admin_member/0");
+import axios from "axios";
 
 export default {
-  data() {
-    return {
-      admin_list: {}
-    };
-  },
-  methods: {
-     show(){
-     let show_item = this;
-      admRef.on("value", function(data) {
-        show_item.admin_list = data.val();
-      });
+  data(){
+    return{
+      adm_username:""
     }
   },
-  mounted() {
-    // this.show();
+  methods:{
+    getData(){
+      const adm = this;
+      axios.get("https://zen-nuxt.firebaseio.com/admin_member.json")
+      .then(res => {
+        this.adm_username = res.data[0].username
+      })
+      .catch(e => console.log(e));
+    }
+  },
+  mounted(){
+    this.getData()
   }
 };
 </script>

@@ -1,16 +1,5 @@
 <template>
-  <div id="app">
-    <noscript>
-      <div class="alert alert-block col-md-12">
-        <h4 class="alert-heading">Warning!</h4>
-        <p>
-          您的瀏覽器需有
-          <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>
-          才可觀看
-        </p>
-      </div>
-    </noscript>
-
+  <div>
     <div id="content" class="col-lg-10 col-sm-10">
       <!-- content starts -->
       <div>
@@ -19,7 +8,7 @@
             <a href="#">中區禪悅社</a>
           </li>
           <li>
-            <a href="#">活動列表</a>
+            <a href="#">執事表列表</a>
           </li>
         </ul>
       </div>
@@ -29,7 +18,7 @@
           <div class="box-inner">
             <div class="box-header well" data-original-title>
               <h2>
-                <i class="glyphicon glyphicon-list-alt"></i> 活動列表
+                <i class="glyphicon glyphicon-list-alt"></i> 執事表列表
               </h2>
             </div>
             <div class="box-content">
@@ -49,52 +38,46 @@
                             rules="ALL"
                           >
                             <tr>
-                              <th width="10%" bgcolor="#CCCCCC">
-                                <p></p>
-                              </th>
-                              <th width="15%" bgcolor="#CCCCCC">
+                              <th width="10%" bgcolor="#CCCCCC">&nbsp;</th>
+                              <th width="20%" bgcolor="#CCCCCC">
                                 <p>活動名稱</p>
                               </th>
-                              <th width="15%" bgcolor="#CCCCCC">
-                                <p>活動地點</p>
-                              </th>
-                              <th width="15%" bgcolor="#CCCCCC">
+                              <th width="20%" bgcolor="#CCCCCC">
                                 <p>活動日期</p>
                               </th>
-                              <th width="15%" bgcolor="#CCCCCC">
-                                <p>開始時間</p>
+                              <th width="20%" bgcolor="#CCCCCC">
+                                <p>總召集人</p>
                               </th>
-                              <th width="15%" bgcolor="#CCCCCC">
-                                <p>結束時間</p>
-                              </th>
-                              <th width="10%" bgcolor="#CCCCCC">
-                                <p>新增者</p>
+                              <th width="20%" bgcolor="#CCCCCC">
+                                <p>查詢鈕</p>
                               </th>
                             </tr>
 
-                            <tr v-for="actli in activity_list">
+                            <tr>
                               <td width="10%" align="center" bgcolor="#FFFFFF">
-                                <p>修改
-                                  <br>刪除
+                                <p>
+                                  <a href>修改</a>
+                                  <br>
+                                  <a href onClick="return deletesure();">刪除</a>
                                 </p>
                               </td>
-                              <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.name}}</p>
+                              <td width="20%" align="center" bgcolor="#FFFFFF">
+                                <p></p>
                               </td>
-                              <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.place}}</p>
+                              <td width="20%" align="center" bgcolor="#FFFFFF">
+                                <p></p>
                               </td>
-                              <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.date}}</p>
+                              <td width="20%" align="center" bgcolor="#FFFFFF">
+                                <p></p>
                               </td>
-                              <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.start_time}}</p>
-                              </td>
-                              <td width="15%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.end_time}}</p>
-                              </td>
-                              <td width="10%" align="center" bgcolor="#FFFFFF">
-                                <p>{{actli.who_add}}</p>
+                              <td width="20%" align="center" bgcolor="#FFFFFF">
+                                <p>
+                                  <center>
+                                    <a href>
+                                      <button class="btn btn-default btn-sm">查看</button>
+                                    </a>
+                                  </center>
+                                </p>
                               </td>
                             </tr>
                           </table>
@@ -110,14 +93,13 @@
                               <td valign="middle">
                                 <p>活動總數：</p>
                               </td>
-
                               <td align="right">
                                 <p>
-                                  <a href="#">第一頁</a> |
-                                  <a href="#">上一頁</a>
+                                  <a href>第一頁</a> |
+                                  <a href>上一頁</a>
                                   |
-                                  <a href="#">下一頁</a> |
-                                  <a href="#">最末頁</a>
+                                  <a href>下一頁</a> |
+                                  <a href>最末頁</a>
                                 </p>
                               </td>
                             </tr>
@@ -136,24 +118,17 @@
       </div>
       <!--/row-->
     </div>
+    <!--/#content.col-md-0-->
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "app",
-  layout: "fun_page",
-  asyncData(context) {
-    return axios.get("https://zen-nuxt.firebaseio.com/activity_list.json")
-      .then(res => {
-        return {
-          activity_list: res.data
-        };
-      })
-      .catch(e => context.error(e));
-  }
+  data() {
+    return {};
+  },
+  layout: "fun_page"
 };
 </script>
 

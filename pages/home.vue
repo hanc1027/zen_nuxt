@@ -4,57 +4,57 @@
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'學校 -> ' + admin_list.school"
+          :title="'學校 -> ' + admin_list[0].school"
           class="well top-block"
           href="#"
         >
           <i class="glyphicon glyphicon-flag blue"></i>
 
           <div style="color:rgba(96, 96, 228, 0.938)">學校名稱</div>
-          <div>{{admin_list.school}}</div>
+          <div>{{admin_list[0].school}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'系級 -> ' + admin_list.department+admin_list.grade"
+          :title="'系級 -> ' + admin_list[0].department+admin_list[0].grade"
           class="well top-block"
           href="#"
         >
           <i class="glyphicon glyphicon-star green"></i>
 
           <div style="color:green">系級</div>
-          <div>{{admin_list.department}}{{admin_list.grade}}</div>
+          <div>{{admin_list[0].department}}{{admin_list[0].grade}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'職別 -> ' + admin_list.cadre"
+          :title="'職別 -> ' + admin_list[0].cadre"
           class="well top-block"
           href="#"
         >
           <i class="glyphicon glyphicon-leaf yellow"></i>
 
           <div style="color:orange">校內幹部職別</div>
-          <div>{{admin_list.cadre}}</div>
+          <div>{{admin_list[0].cadre}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'組別 -> ' + admin_list.group1 + ' ' +admin_list.group2 "
+          :title="'組別 -> ' + admin_list[0].group1 + ' ' +admin_list[0].group2 "
           class="well top-block"
           href="#"
         >
           <i class="glyphicon glyphicon-briefcase red"></i>
 
           <div style="color:red">中區組別</div>
-          <div v-if="admin_list.group2 == ''">{{admin_list.group1}}</div>
-          <div v-else-if="admin_list.group2 != ''">{{admin_list.group1}} / {{admin_list.group2}}</div>
+          <div v-if="admin_list[0].group2 == ''">{{admin_list[0].group1}}</div>
+          <div v-else-if="admin_list[0].group2 != ''">{{admin_list[0].group1}} / {{admin_list[0].group2}}</div>
         </a>
       </div>
     </div>
@@ -128,28 +128,21 @@
 </template>
 
 <script>
+import axios from 'axios';
 // const admRef = firebase.database().ref("/admin_member/0");
 
 export default {
   name: "app",
-  data() {
-    return {
-      admin_list:{}
-    };
-  },
-  methods: {
-     show(){
-     let show_item = this;
-      admRef.on("value", function(data) {
-        show_item.admin_list = data.val();
-      });
-    }
-  },
-  mounted() {
-    // this.show()
-  },
-  layout:'fun_page'
-  
+  layout:'fun_page',
+  asyncData(context) {
+    return axios.get("https://zen-nuxt.firebaseio.com/admin_member.json")
+      .then(res => {
+        return {
+          admin_list: res.data
+        };
+      })
+      .catch(e => context.error(e));
+  }
 };
 </script>
 

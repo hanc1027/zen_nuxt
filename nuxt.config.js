@@ -53,7 +53,7 @@ module.exports = {
       { src: "js/charisma.js" },
       //connect firebase
       { src: "https://www.gstatic.com/firebasejs/5.7.3/firebase.js"},
-      { src: "js/init_firebase.js"}
+      { src: "js/init_firebase.js"},
     ]
   },
 
