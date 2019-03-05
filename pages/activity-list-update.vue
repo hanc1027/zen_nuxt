@@ -27,9 +27,6 @@ import updateActivityForm from "@/components/forms/updateActivityForm";
 
 export default {
   name: "app",
-  data() {
-    return {};
-  },
   components: {
     updateActivityForm
   },

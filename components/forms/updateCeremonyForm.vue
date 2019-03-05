@@ -4,26 +4,24 @@
       <div class="box-inner">
         <div class="box-header well" data-original-title>
           <h2>
-            <i class="glyphicon glyphicon-cog"></i> 活動新增
+            <i class="glyphicon glyphicon-refresh"></i> 法會更新
           </h2>
         </div>
-        <!-- <button onclick="meetingForm();"></button> -->
-        <form role="form" @submit.prevent="onSave">
+        <form role="form"  @submit.prevent="onSave">
           <div class="box-content">
             <br>
             <div class="input-group col-md-3">
               <span class="input-group-addon">
                 <b>
-                  <i style="color:rgb(25, 156, 150)">活動名稱</i>
+                  <i style="color:rgb(214, 180, 10)">法會名稱</i>
                 </b>
               </span>
               <input
-                name="me_name"
+                name="new_name"
                 id="me_name"
                 type="text"
                 class="form-control"
-                placeholder="Activity_Name"
-                v-model="edited_list.name"
+                v-model="editedCeremony.name"
               >
             </div>
             <br>
@@ -31,16 +29,15 @@
             <div class="input-group col-md-3">
               <span class="input-group-addon">
                 <b>
-                  <i style="color:rgb(25, 156, 150)">活動地點</i>
+                  <i style="color:rgb(214, 180, 10)">法會地點</i>
                 </b>
               </span>
               <input
-                name="me_place"
+                name="new_place"
                 id="me_place"
                 type="text"
                 class="form-control"
-                placeholder="Activity_Place"
-                v-model="edited_list.place"
+                v-model="editedCeremony.place"
               >
             </div>
             <br>
@@ -48,24 +45,24 @@
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <b>
-                  <i style="color:rgb(25, 156, 150)">活動日期</i>
+                  <i style="color:rgb(214, 180, 10)">法會日期</i>
                 </b>
               </span>
-              <input name="me_date" id="me_date" type="date" v-model="edited_list.date">
+              <input name="new_date" id="me_date" type="date" v-model="editedCeremony.date">
             </div>
             <br>
 
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <b>
-                  <i style="color:rgb(25, 156, 150)">活動開始時間</i>
+                  <i style="color:rgb(214, 180, 10)">開始時間</i>
                 </b>
               </span>
               <input
-                name="me_start_time"
+                name="new_start_time"
                 id="me_start_time"
                 type="time"
-                v-model="edited_list.start_time"
+                v-model="editedCeremony.start_time"
               >
             </div>
             <br>
@@ -73,15 +70,20 @@
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <b>
-                  <i style="color:rgb(25, 156, 150)">活動結束時間</i>
+                  <i style="color:rgb(214, 180, 10)">結束時間</i>
                 </b>
               </span>
-              <input name="me_end_time" id="me_end_time" type="time" v-model="edited_list.end_time">
+              <input
+                name="new_end_time"
+                id="me_end_time"
+                type="time"
+                v-model="editedCeremony.end_time"
+              >
             </div>
             <br>
 
-            <input name="action" type="hidden" id="action" value="join">
-            <button type="submit" class="btn btn-default">新增</button>
+            <input name="action" type="hidden" id="action" value="update">
+            <button type="submit" class="btn btn-default">更新</button>
           </div>
         </form>
       </div>
@@ -92,6 +94,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   head() {
     return {
@@ -99,21 +103,22 @@ export default {
     };
   },
   props: {
-    add_act_list: {
+    update_ceremony_list: {
       type: Object,
       required: false
     }
   },
   data() {
     return {
-      edited_list: this.add_act_list
-        ? { ...this.add_act_list }
+      editedCeremony: this.update_ceremony_list
+        ? { ...this.update_ceremony_list }
         : {
             name: "",
             place: "",
             date: "",
             start_time: "",
             end_time: "",
+            people_num: "",
             who_add: ""
           }
     };
@@ -124,7 +129,7 @@ export default {
         return false;
       } else {
         // Save the post
-        this.$emit("submit", this.edited_list);
+        this.$emit("submit", this.editedCeremony);
       }
     }
   }
