@@ -80,13 +80,13 @@
                               </th>
                             </tr>
 
-                            <tr v-for="(meeting,key) in meeting_list" :id="key" >
+                            <tr v-for="(meeting,key) in meeting_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <!-- /signature-list-update?id={{key}}-->
                                   <nuxt-link :to="{path:'signature-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
-                                  <a href="#">刪除</a>
+                                  <a href="#" @click="deleteMeeting(key)">刪除</a>
                                 </p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
@@ -159,27 +159,44 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "app",
   data() {
     return {
-      meeting_list_len:"",
+      meeting_list_len: ""
     };
   },
   layout: "fun_page",
-  asyncData(context){
-    return axios.get('https://zen-nuxt.firebaseio.com/meeting_list.json')
-    .then(res =>{
-      return {
-        meeting_list:res.data
-      };
-    })
-    .catch(e => context.error(e));
+  asyncData(context) {
+    return axios
+      .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
+      .then(res => {
+        return {
+          meeting_list: res.data
+        };
+      })
+      .catch(e => context.error(e));
   },
-  mounted(){
-    this.meeting_list_len =  Object.keys(this.meeting_list).length
+  mounted() {
+    this.meeting_list_len = Object.keys(this.meeting_list).length;
+  },
+  methods: {
+    deleteMeeting(dataId) {
+      var confirmDel = confirm(
+        "您確定要刪除這個會議嗎?\n若確定刪除，簽到的人員紀錄會一併刪除，無法恢復"
+      );
+      if (confirmDel) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/meeting_list/" + dataId + ".json"
+          )
+          .then(res => {
+            location.reload();
+          });
+      }
+    }
   }
 };
 </script>

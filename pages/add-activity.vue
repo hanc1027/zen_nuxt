@@ -14,14 +14,13 @@
       </div>
 
       <addActivityForm @submit="onSubmitted"/>
-
     </div>
     <!--/#content.col-md-0-->
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import addActivityForm from "@/components/forms/addActivityFrom";
 
 export default {
@@ -32,12 +31,13 @@ export default {
   methods: {
     onSubmitted(listData) {
       //axios.post() 新增資料
-      axios.post('https://zen-nuxt.firebaseio.com/activity_list.json', listData)
-        .then(result => console.log(result))
-        .catch(e => console.log(e))
-
-     alert("活動已新增！")
-     this.$router.push("/activity_list")
+      axios
+        .post("https://zen-nuxt.firebaseio.com/activity_list.json", listData)
+        .then(result => {
+          alert("活動已新增！");
+          this.$router.push("/activity_list");
+        })
+        .catch(e => console.log(e));
     }
   }
 };

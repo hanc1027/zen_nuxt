@@ -1,6 +1,6 @@
 <template>
   <div id="app">
- <div id="content" class="col-lg-10 col-sm-10">
+    <div id="content" class="col-lg-10 col-sm-10">
       <!-- content starts -->
       <div>
         <ul class="breadcrumb">
@@ -17,13 +17,12 @@
       </div>
 
       <addMeetingForm @submit="onSubmitted"/>
-      
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import addMeetingForm from "@/components/forms/addMeetingForm";
 
 export default {
@@ -33,12 +32,13 @@ export default {
   layout: "fun_page",
   methods: {
     onSubmitted(listData) {
-      axios.post('https://zen-nuxt.firebaseio.com/meeting_list.json', listData)
-        .then(result => console.log(result))
-        .catch(e => console.log(e))
-
-     alert("會議已新增！")
-     this.$router.push({path:"/home"})
+      axios
+        .post("https://zen-nuxt.firebaseio.com/meeting_list.json", listData)
+        .then(result => {
+          alert("會議已新增！");
+          this.$router.push({ path: "/signature-list" });
+        })
+        .catch(e => console.log(e));
     }
   }
 };
