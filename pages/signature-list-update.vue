@@ -1,71 +1,68 @@
 <template>
-    <div>
-         <div id="content" class="col-lg-10 col-sm-10">
-            <!-- content starts -->
-        <div>
-    <ul class="breadcrumb">
-        <li><a href="#">中區禪悅社</a></li>
-        <li><a href="signature.php">會議簽到</a></li>
-        <li><a href="#">會議更新</a></li>
-    </ul>
-</div>
-
-<div class="row">
-    <div class="box col-md-12">
-        <div class="box-inner">
-            <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-refresh"></i> 會議更新</h2>
-            </div>
-            <!-- <button onclick="meetingForm();"></button> -->
-            <form role="form" method="POST" onSubmit="return meetingFormCheck();">
-            <div class="box-content"><br>
-                <div class="input-group col-md-3">
-                    <span class="input-group-addon"><b><i style="color:rgb(25, 40, 150)">會議名稱</i></b></span>
-                    <input name="new_name" id="me_name" type="text" class="form-control" value="<?php echo $meeting_name?>">
-                </div><br>
-                
-
-                <div class="input-group col-md-3">
-                    <span class="input-group-addon"><b><i style="color:rgb(25, 40, 150)">會議地點</i></b></span>
-                    <input name="new_place" id="me_place" type="text" class="form-control" value="<?php echo $meeting_place?>">
-                </div><br>
-
-                <div class="input-group col-md-4">
-                    <span class="input-group-addon"><b><i style="color:rgb(25, 40, 150)">會議日期</i></b></span>
-                    <input name="new_date" id="me_date" type="date" value="<?php echo $meeting_date?>">
-                </div><br>
-
-                <div class="input-group col-md-4">
-                    <span class="input-group-addon"><b><i style="color:rgb(25, 40, 150)">開始時間</i></b></span>
-                    <input name="new_start_time" id="me_start_time" type="time" value="<?php echo $meeting_start?>">
-                </div><br>
-
-                <div class="input-group col-md-4">
-                    <span class="input-group-addon"><b><i style="color:rgb(25, 40, 150)">結束時間</i></b></span>
-                    <input name="new_end_time" id="me_end_time" type="time" value="<?php echo $meeting_end?>">
-                </div><br>
-
-                <input name="new_id" type="hidden" id="m_id" value="<?php echo $_GET['id'];?>">
-                <input name="action" type="hidden" id="action" value="update">
-                <button type="submit" class="btn btn-default">更新</button>
-            </div>
-            </form>
-        </div>
+  <div>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">中區禪悅社</a>
+          </li>
+          <li>
+            <nuxt-link to="signature">會議簽到</nuxt-link>
+          </li>
+          <li>
+            <a href="#">會議更新</a>
+          </li>
+        </ul>
+      </div>
+      <updateMeetingForm :update_meeting_list="loadedMeeting" @submit="onSubmitted" />
     </div>
-    <!--/span-->
-</div><!--/row-->
 
-    </div><!--/#content.col-md-0-->
-    </div>
+    <!--/#content.col-md-0-->
+  </div>
 </template>
 
 <script>
+import axios from "axios"
+import updateMeetingForm from "@/components/forms/updateMeetingForm";
+
 export default {
   name: "app",
-  data() {
-    return {};
+  components: {
+    updateMeetingForm
   },
-  layout: "fun_page"
+  data() {
+    return {
+        update_meeting:""
+    };
+  },
+  layout: "fun_page",
+  asyncData(context) {
+    return axios
+      .get(
+        "https://zen-nuxt.firebaseio.com/meeting_list/" +
+          context.query.id +
+          ".json"
+      )
+      .then(res => {
+        return {
+          loadedMeeting: { ...res.data, id: context.params.postId }
+        };
+      })
+      .catch(e => context.error());
+  },
+  methods:{
+     onSubmitted(listData) {
+         //axios.put() 修改資料
+      axios.put('https://zen-nuxt.firebaseio.com/meeting_list/'+this.$route.query.id+'.json', listData)
+        .then(result => {
+            alert("會議已更新！")
+            this.$router.push("signature-list")
+        })
+        .catch(e => console.log(e))
+     
+    }
+  }
 };
 </script>
 

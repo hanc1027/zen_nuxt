@@ -31,6 +31,7 @@ export default {
   layout: "fun_page",
   methods: {
     onSubmitted(listData) {
+      //axios.post() 新增資料
       axios.post('https://zen-nuxt.firebaseio.com/activity_list.json', listData)
         .then(result => console.log(result))
         .catch(e => console.log(e))

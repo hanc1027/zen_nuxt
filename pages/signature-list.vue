@@ -80,28 +80,29 @@
                               </th>
                             </tr>
 
-                            <tr>
+                            <tr v-for="(meeting,key) in meeting_list" :id="key" >
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                  <a href="#">修改</a>
+                                  <!-- /signature-list-update?id={{key}}-->
+                                  <nuxt-link :to="{path:'signature-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
                                   <a href="#">刪除</a>
                                 </p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.name}}</p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.place}}</p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.date}}</p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.start_time}}</p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.end_time}}</p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
                                 <center>
@@ -128,7 +129,7 @@
                           >
                             <tr>
                               <td valign="middle">
-                                <p>會議總數：2</p>
+                                <p>會議總數：{{meeting_list_len}}</p>
                               </td>
                               <td align="right">
                                 <p>
@@ -158,12 +159,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      meeting_list_len:"",
+    };
   },
-  layout: "fun_page"
+  layout: "fun_page",
+  asyncData(context){
+    return axios.get('https://zen-nuxt.firebaseio.com/meeting_list.json')
+    .then(res =>{
+      return {
+        meeting_list:res.data
+      };
+    })
+    .catch(e => context.error(e));
+  },
+  mounted(){
+    this.meeting_list_len =  Object.keys(this.meeting_list).length
+  }
 };
 </script>
 
