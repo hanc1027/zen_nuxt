@@ -4,8 +4,8 @@
             <!-- content starts -->
         <div>
     <ul class="breadcrumb">
-        <li><a href="#">中區禪悅社</a></li>
-        <li><a href="#">法訊新增</a></li>
+        <li><a href="">中區禪悅社</a></li>
+        <li><a href="">法訊新增</a></li>
     </ul>
 </div>
 

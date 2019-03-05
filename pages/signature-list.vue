@@ -5,13 +5,13 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="#">中區禪悅社</a>
+            <a href="">中區禪悅社</a>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="#">會議簽到狀況</a>
+            <a href="">會議簽到狀況</a>
           </li>
         </ul>
       </div>
@@ -86,7 +86,7 @@
                                   <!-- /signature-list-update?id={{key}}-->
                                   <nuxt-link :to="{path:'signature-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
-                                  <a href="#" @click="deleteMeeting(key)">刪除</a>
+                                  <a href="" @click="deleteMeeting(key)">刪除</a>
                                 </p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
@@ -108,7 +108,7 @@
                                 <center>
                                   <p>人</p>
                                   <p>
-                                    <a href="#">
+                                    <a href="">
                                       <button class="btn btn-default btn-sm">查看</button>
                                     </a>
                                   </p>
@@ -133,10 +133,10 @@
                               </td>
                               <td align="right">
                                 <p>
-                                  <a href="#">第一頁</a> |
-                                  <a href="#">上一頁</a> |
-                                  <a href="#">下一頁</a> |
-                                  <a href="#">最末頁</a>
+                                  <a href="">第一頁</a> |
+                                  <a href="">上一頁</a> |
+                                  <a href="">下一頁</a> |
+                                  <a href="">最末頁</a>
                                 </p>
                               </td>
                             </tr>

@@ -5,10 +5,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="#">中區禪悅社</a>
+            <a href="">中區禪悅社</a>
           </li>
           <li>
-            <a href="#">帳號管理</a>
+            <a href="">帳號管理</a>
           </li>
         </ul>
       </div>
@@ -57,9 +57,9 @@
                             <tr>
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                  <a href="#">修改</a>
+                                  <a href="">修改</a>
                                   <br>
-                                  <a href="#" onClick="return deletesure();">刪除</a>
+                                  <a href="" onClick="return deletesure();">刪除</a>
                                 </p>
                               </td>
                               <td width="20%" align="center" bgcolor="#FFFFFF">
@@ -90,10 +90,10 @@
                               </td>
                               <td align="right">
                                 <p>
-                                  <a href="#">第一頁</a> |
-                                  <a href="#">上一頁</a> |
-                                  <a href="#">下一頁</a> |
-                                  <a href="#">最末頁</a>
+                                  <a href="">第一頁</a> |
+                                  <a href="">上一頁</a> |
+                                  <a href="">下一頁</a> |
+                                  <a href="">最末頁</a>
                                 </p>
                               </td>
                             </tr>

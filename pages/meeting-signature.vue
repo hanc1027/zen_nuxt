@@ -5,13 +5,13 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="#">中區禪悅社</a>
+            <a href="">中區禪悅社</a>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="#">幹部簽到</a>
+            <a href="">幹部簽到</a>
           </li>
         </ul>
       </div>
@@ -100,10 +100,10 @@
                               </td>
                               <td align="right">
                                 <p>
-                                  <a href="#">第一頁</a> |
-                                  <a href="#">上一頁</a> |
-                                  <a href="#">下一頁</a> |
-                                  <a href="#">最末頁</a>
+                                  <a href="">第一頁</a> |
+                                  <a href="">上一頁</a> |
+                                  <a href="">下一頁</a> |
+                                  <a href="">最末頁</a>
                                 </p>
                               </td>
                             </tr>

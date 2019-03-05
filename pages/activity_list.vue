@@ -16,10 +16,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="#">中區禪悅社</a>
+            <a href="">中區禪悅社</a>
           </li>
           <li>
-            <a href="#">活動列表</a>
+            <a href="">活動列表</a>
           </li>
         </ul>
       </div>
@@ -72,13 +72,13 @@
                               </th>
                             </tr>
 
-                            <tr v-for="actli in activity_list">
+                            <tr v-for="(actli,key,id) in activity_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
-                                 <center>
-                                    <p>修改
-                                      <br>刪除
+                                    <p>
+                                      <nuxt-link :to="{path:'activity-list-update',query:{id:key}}">修改</nuxt-link>
+                                      <br>
+                                      <a href="" @click="deleteActivity(key)">刪除</a>
                                     </p>
-                                  </center>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.name}}</p>
@@ -115,11 +115,11 @@
 
                               <td align="right">
                                 <p>
-                                  <a href="#">第一頁</a> |
-                                  <a href="#">上一頁</a>
+                                  <a href="">第一頁</a> |
+                                  <a href="">上一頁</a>
                                   |
-                                  <a href="#">下一頁</a> |
-                                  <a href="#">最末頁</a>
+                                  <a href="">下一頁</a> |
+                                  <a href="">最末頁</a>
                                 </p>
                               </td>
                             </tr>
@@ -155,6 +155,22 @@ export default {
         };
       })
       .catch(e => context.error(e));
+  },
+  methods: {
+    deleteActivity(dataId) {
+      var confirmDel = confirm(
+        "您確定要刪除這個活動嗎?\n若確定刪除，則無法恢復"
+      );
+      if (confirmDel) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/activity_list/" + dataId + ".json"
+          )
+          .then(res => {
+            location.reload();
+          });
+      }
+    }
   }
 };
 </script>

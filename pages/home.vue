@@ -6,7 +6,7 @@
           data-toggle="tooltip"
           :title="'學校 -> ' + admin_list[0].school"
           class="well top-block"
-          href="#"
+          href=""
         >
           <i class="glyphicon glyphicon-flag blue"></i>
 
@@ -20,7 +20,7 @@
           data-toggle="tooltip"
           :title="'系級 -> ' + admin_list[0].department+admin_list[0].grade"
           class="well top-block"
-          href="#"
+          href=""
         >
           <i class="glyphicon glyphicon-star green"></i>
 
@@ -34,7 +34,7 @@
           data-toggle="tooltip"
           :title="'職別 -> ' + admin_list[0].cadre"
           class="well top-block"
-          href="#"
+          href=""
         >
           <i class="glyphicon glyphicon-leaf yellow"></i>
 
@@ -48,7 +48,7 @@
           data-toggle="tooltip"
           :title="'組別 -> ' + admin_list[0].group1 + ' ' +admin_list[0].group2 "
           class="well top-block"
-          href="#"
+          href=""
         >
           <i class="glyphicon glyphicon-briefcase red"></i>
 
@@ -68,7 +68,7 @@
             </h2>
 
             <div class="box-icon">
-              <a href="#" class="btn btn-minimize btn-round btn-default">
+              <a href="" class="btn btn-minimize btn-round btn-default">
                 <i class="glyphicon glyphicon-chevron-up"></i>
               </a>
             </div>

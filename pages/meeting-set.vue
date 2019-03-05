@@ -5,13 +5,13 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="#">中區禪悅社</a>
+            <a href="">中區禪悅社</a>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="#">會議新增</a>
+            <a href="">會議新增</a>
           </li>
         </ul>
       </div>
