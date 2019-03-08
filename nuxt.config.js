@@ -100,6 +100,7 @@ module.exports = {
     */
     extend(config, ctx) {
 
-    }
+    },
+    vendor: ['external_library'] //讓alert可以使用，因為nuxt是server-side rendering，但alert是瀏覽器的api
   }
 }

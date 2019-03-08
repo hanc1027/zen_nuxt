@@ -34,7 +34,7 @@ export default {
   methods: {
     onSubmitted(listData) {
       this.$store.dispatch("addCeremony", listData).then(() => {
-        this.$router.push("ceremony-list");
+        this.$router.push("/ceremony-list");
       });
     }
   }

@@ -219,6 +219,7 @@ const createStore = () => {
           console.log('No token or invalid token');
           //若現在時間大於token的期滿日則清除token
           vuexContext.commit("logout")
+          alert("安全機制：於特定時間自動幫您登出。")
           return;
         }
 

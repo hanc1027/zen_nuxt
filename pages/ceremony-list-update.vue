@@ -55,7 +55,7 @@ export default {
       this.$store
         .dispatch("editedCeremony", addID)
         .then(() => {
-          this.$router.push("ceremony-list");
+          this.$router.push("/ceremony-list");
         })
         .catch(e => console.log(e));
     }

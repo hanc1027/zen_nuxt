@@ -26,7 +26,7 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a href="" @click="onLogout">登出</a>
+            <a href @click="onLogout">登出</a>
           </li>
         </ul>
       </div>
@@ -48,27 +48,29 @@
 import axios from "axios";
 
 export default {
-  data(){
-    return{
-      adm_username:""
-    }
+  data() {
+    return {
+      adm_username: ""
+    };
   },
-  methods:{
-    getData(){
+  methods: {
+    getData() {
       const adm = this;
-      axios.get("https://zen-nuxt.firebaseio.com/admin_member.json")
-      .then(res => {
-        this.adm_username = res.data[0].username
-      })
-      .catch(e => console.log(e));
+      axios
+        .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+        .then(res => {
+          this.adm_username = res.data[0].username;
+        })
+        .catch(e => console.log(e));
     },
-    onLogout(){
-      this.$store.dispatch('logout');
-      this.$router.push('/');
+    onLogout() {
+      alert("您已登出。");
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     }
   },
-  mounted(){
-    this.getData()
+  mounted() {
+    this.getData();
   }
 };
 </script>
