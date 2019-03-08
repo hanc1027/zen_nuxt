@@ -134,7 +134,7 @@ import axios from 'axios';
 export default {
   name: "app",
   layout:'fun_page',
-  asyncData(context) {
+  asyncData(context) { 
     return axios.get("https://zen-nuxt.firebaseio.com/admin_member.json")
       .then(res => {
         return {

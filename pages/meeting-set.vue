@@ -32,13 +32,9 @@ export default {
   layout: "fun_page",
   methods: {
     onSubmitted(listData) {
-      axios
-        .post("https://zen-nuxt.firebaseio.com/meeting_list.json", listData)
-        .then(result => {
-          alert("會議已新增！");
+       this.$store.dispatch("addMeeting", listData).then(() => {
           this.$router.push({ path: "/signature-list" });
-        })
-        .catch(e => console.log(e));
+      });
     }
   }
 };

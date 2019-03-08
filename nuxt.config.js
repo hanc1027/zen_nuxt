@@ -3,7 +3,9 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-
+  env:{
+    fbAPIKey:"AIzaSyAOzccuLBhNT5d3YJZ0NckZ7iAUswIY07Q"
+  },
   /*
   ** Headers of the page
   */

@@ -26,7 +26,7 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a href="#">登出</a>
+            <a href="" @click="onLogout">登出</a>
           </li>
         </ul>
       </div>
@@ -61,6 +61,10 @@ export default {
         this.adm_username = res.data[0].username
       })
       .catch(e => console.log(e));
+    },
+    onLogout(){
+      this.$store.dispatch('logout');
+      this.$router.push('/');
     }
   },
   mounted(){

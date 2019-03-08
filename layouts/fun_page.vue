@@ -13,6 +13,7 @@ import leftNav from "@/components/left_nav.vue";
 import zenFooter from "@/components/footer.vue";
 
 export default {
+  middleware:['check-auth','auth'],
     components: {
     topNav,leftNav,zenFooter
   },
