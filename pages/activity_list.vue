@@ -167,13 +167,7 @@ export default {
         "您確定要刪除這個活動嗎?\n若確定刪除，則無法恢復"
       );
       if (confirmDel) {
-        axios
-          .delete(
-            "https://zen-nuxt.firebaseio.com/activity_list/" + dataId + ".json"
-          )
-          .then(res => {
-            location.reload();
-          });
+        this.$store.dispatch("delete_activity", dataId);
       }
     }
   }

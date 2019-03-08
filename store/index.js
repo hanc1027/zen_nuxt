@@ -123,6 +123,35 @@ const createStore = () => {
           })
           .catch(e => console.log(e));
       },
+      delete_meeting(vuexContext, id) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/meeting_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          ).then(() => {
+            location.reload();
+          })
+      },
+      delete_activity(vuexContext, id) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/activity_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(()=> {
+            location.reload();
+          });
+      },
+      delete_ceremony(vuexContext, id) {
+        axios
+        .delete(
+          "https://zen-nuxt.firebaseio.com/ceremony_list/" + id + ".json?auth=" +
+          vuexContext.state.token
+        )
+        .then(()=> {
+          location.reload();
+        });
+      },
       // nuxtServerInit(vuexContext, context) {
       //   return axios.get('https://zen-nuxt.firebaseio.com/activity_list.json')
       //     .then(res => {

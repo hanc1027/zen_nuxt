@@ -84,6 +84,9 @@
                   <nuxt-link  class="btn btn-default btn-sm" to="meeting-signature">
                     <i class="glyphicon glyphicon-list"></i> 幹部簽到
                   </nuxt-link >
+                  <nuxt-link  class="btn btn-default btn-sm" to="signature-list">
+                    <i class="glyphicon glyphicon-list"></i> 會議列表
+                  </nuxt-link >
                   <br>
                 </font>
               </h2>
@@ -97,12 +100,12 @@
                   <nuxt-link to="activity_list" class="btn btn-default btn-sm">
                     <i class="glyphicon glyphicon-list"></i> 活動列表
                   </nuxt-link>
-                  <nuxt-link class="btn btn-default btn-sm" to="activity-duty-arrange">
+                  <!-- <nuxt-link class="btn btn-default btn-sm" to="activity-duty-arrange">
                     <i class="glyphicon glyphicon-plus"></i> 新增執事表
                   </nuxt-link>
                   <nuxt-link class="btn btn-default btn-sm" to="activity-duty-list">
                     <i class="glyphicon glyphicon-search"></i> 執事表查詢
-                  </nuxt-link>
+                  </nuxt-link> -->
                   <br>
                 </font>
               </h2>

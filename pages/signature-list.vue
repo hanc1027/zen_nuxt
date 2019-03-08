@@ -192,13 +192,7 @@ export default {
         "您確定要刪除這個會議嗎?\n若確定刪除，簽到的人員紀錄會一併刪除，無法恢復"
       );
       if (confirmDel) {
-        axios
-          .delete(
-            "https://zen-nuxt.firebaseio.com/meeting_list/" + dataId + ".json"
-          )
-          .then(res => {
-            location.reload();
-          });
+       this.$store.dispatch("delete_meeting", dataId);
       }
     }
   }

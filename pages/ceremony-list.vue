@@ -145,13 +145,7 @@ export default {
         "您確定要刪除這個法訊嗎?\n若確定刪除，則無法恢復"
       );
       if (confirmDel) {
-        axios
-          .delete(
-            "https://zen-nuxt.firebaseio.com/ceremony_list/" + dataId + ".json"
-          )
-          .then(res => {
-            location.reload();
-          });
+       this.$store.dispatch("delete_ceremony", dataId);
       }
     }
   }
