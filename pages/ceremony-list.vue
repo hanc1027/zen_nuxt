@@ -22,6 +22,9 @@
               </h2>
             </div>
             <div class="box-content">
+              <nuxt-link class="btn btn-default btn-sm" to="add-ceremony">
+                <i class="glyphicon glyphicon-plus"></i> 新增法訊
+              </nuxt-link>
               <table width="780" border="0" align="center" cellpadding="4" cellspacing="0">
                 <tr>
                   <td class="tdbline">
@@ -61,7 +64,7 @@
                                 <p>
                                   <nuxt-link :to="{path:'ceremony-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
-                                  <a href="" @click="deleteActivity(key)">刪除</a>
+                                  <a href @click="deleteActivity(key)">刪除</a>
                                 </p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">

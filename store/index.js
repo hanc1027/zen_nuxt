@@ -30,6 +30,96 @@ const createStore = () => {
             createdMeeting)
           .then(() => {
             alert("會議已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      addActivity(vuexContext, activity) {
+        const createdActivity = {
+          ...activity,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/activity_list.json?auth=" + vuexContext.state.token,
+            createdActivity)
+          .then(() => {
+            alert("活動已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      addCeremony(vuexContext, ceremony) {
+        const createdCeremony = {
+          ...ceremony,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/ceremony_list.json?auth=" + vuexContext.state.token,
+            createdCeremony)
+          .then(() => {
+            alert("法訊已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedMeeting(vuexContext, meeting) {
+        const newMeeting = {
+          ...meeting,
+          updatedDate: new Date()
+        };
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/meeting_list/" +
+            meeting.meetingId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newMeeting
+          )
+          .then(() => {
+            alert("會議已更新！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedActivity(vuexContext, activity) {
+        const newActivity = {
+          ...activity,
+          updatedDate: new Date()
+        };
+        //axios.put() 修改資料
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/activity_list/" +
+            activity.activityId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newActivity
+          )
+          .then(() => {
+            alert("活動已更新！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedCeremony(vuexContext, ceremony) {
+        const newCeremony = {
+          ...ceremony,
+          updatedDate: new Date()
+        };
+        //axios.put() 修改資料
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/ceremony_list/" +
+            ceremony.ceremonyId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newCeremony
+          )
+          .then(() => {
+            alert("法訊已更新！");
+            location.reload();
           })
           .catch(e => console.log(e));
       },

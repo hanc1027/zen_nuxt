@@ -132,6 +132,9 @@ import axios from 'axios';
 // const admRef = firebase.database().ref("/admin_member/0");
 
 export default {
+  head:{
+    title:"中區禪悅社-首頁"
+  },
   name: "app",
   layout:'fun_page',
   asyncData(context) { 

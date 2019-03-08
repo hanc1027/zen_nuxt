@@ -26,6 +26,9 @@ import axios from "axios";
 import addMeetingForm from "@/components/forms/addMeetingForm";
 
 export default {
+  head:{
+    title:"中區禪悅社-會議新增"
+  },
   components: {
     addMeetingForm
   },
@@ -33,7 +36,7 @@ export default {
   methods: {
     onSubmitted(listData) {
        this.$store.dispatch("addMeeting", listData).then(() => {
-          this.$router.push({ path: "/signature-list" });
+          this.$router.push({ path: "signature-list" });
       });
     }
   }

@@ -5,10 +5,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <a href>中區禪悅社</a>
           </li>
           <li>
-            <a href="">活動新增</a>
+            <a href>活動新增</a>
           </li>
         </ul>
       </div>
@@ -24,20 +24,18 @@ import axios from "axios";
 import addActivityForm from "@/components/forms/addActivityFrom";
 
 export default {
+  head: {
+    title: "中區禪悅社-活動新增"
+  },
   components: {
     addActivityForm
   },
   layout: "fun_page",
   methods: {
     onSubmitted(listData) {
-      //axios.post() 新增資料
-      axios
-        .post("https://zen-nuxt.firebaseio.com/activity_list.json", listData)
-        .then(result => {
-          alert("活動已新增！");
-          this.$router.push("/activity_list");
-        })
-        .catch(e => console.log(e));
+      this.$store.dispatch("addActivity", listData).then(() => {
+        this.$router.push("/activity_list");
+      });
     }
   }
 };
