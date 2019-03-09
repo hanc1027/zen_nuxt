@@ -132,7 +132,7 @@
 
 <script>
 import axios from 'axios';
-// const admRef = firebase.database().ref("/admin_member/0");
+import Cookie from 'js-cookie'
 
 export default {
   head:{
@@ -149,6 +149,9 @@ export default {
       })
       .catch(e => context.error(e));
   },
+  // mounted(){
+  //   console.log("mainEmail=",Cookie.get('mainEmail'))
+  // }
 };
 </script>
 
