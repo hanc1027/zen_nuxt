@@ -166,10 +166,6 @@
             <label class="radio-inline">
               <input type="radio" name="new_cadre" id="cadre_second" value="副社長" v-model="addAdmin_list.cadre">副社長
             </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_third" value="其他">其他
-              <input type="text" name="other_reason" v-model="addAdmin_list.cadre">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-            </label>
             <br>
             <br>
 

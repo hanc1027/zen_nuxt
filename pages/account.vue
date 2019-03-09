@@ -49,31 +49,31 @@
                                 <p>加入時間</p>
                               </th>
                               <!-- 視情況開此權限 -->
-                              <th width="20%" bgcolor="#CCCCCC">
+                              <!-- <th width="20%" bgcolor="#CCCCCC">
                                 <p>上次登入</p>
-                              </th>
+                              </th> -->
                             </tr>
 
-                            <tr>
+                            <tr v-for="(adm,key) in admin_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                  <a href="">修改</a>
+                                   <nuxt-link :to="{path:'account-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
-                                  <a href="" onClick="return deletesure();">刪除</a>
+                                  <a href @click="deleteAdmin(key)">刪除</a>
                                 </p>
                               </td>
                               <td width="20%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{adm.name}}</p>
                               </td>
                               <td width="20%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{adm.email}}</p>
                               </td>
                               <td width="20%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{adm.joinDate}}</p>
                               </td>
-                              <td width="20%" align="center" bgcolor="#FFFFFF">
+                              <!-- <td width="20%" align="center" bgcolor="#FFFFFF">
                                 <p></p>
-                              </td>
+                              </td> -->
                             </tr>
                           </table>
                           <hr size="1">
@@ -117,7 +117,30 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  layout: "fun_page"
+  layout: "fun_page",
+  asyncData(context) {
+    return axios
+      .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+      .then(res => {
+        return {
+          admin_list: res.data
+        };
+      })
+      .catch(e => context.error(e));
+  },
+  methods: {
+    deleteAdmin(dataId) {
+      var confirmDel = confirm(
+        "您確定要刪除這個活動嗎?\n若確定刪除，則無法恢復"
+      );
+      if (confirmDel) {
+        let deleteUrl = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/deleteAccount?key="+ process.env.fbAPIKey;
+        this.$store.dispatch("delete_admin", dataId);
+      }
+    }
+  }
 };
 </script>

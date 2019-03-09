@@ -4,57 +4,57 @@
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'學校 -> ' + admin_list[0].school"
+          :title="'學校 -> ' + admin_list.school"
           class="well top-block"
           href=""
         >
           <i class="glyphicon glyphicon-flag blue"></i>
 
           <div style="color:rgba(96, 96, 228, 0.938)">學校名稱</div>
-          <div>{{admin_list[0].school}}</div>
+          <div>{{admin_list.school}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'系級 -> ' + admin_list[0].department+admin_list[0].grade"
+          :title="'系級 -> ' + admin_list.department+admin_list.grade"
           class="well top-block"
           href=""
         >
           <i class="glyphicon glyphicon-star green"></i>
 
           <div style="color:green">系級</div>
-          <div>{{admin_list[0].department}}{{admin_list[0].grade}}</div>
+          <div>{{admin_list.department}}{{admin_list.grade}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'職別 -> ' + admin_list[0].cadre"
+          :title="'職別 -> ' + admin_list.cadre"
           class="well top-block"
           href=""
         >
           <i class="glyphicon glyphicon-leaf yellow"></i>
 
           <div style="color:orange">校內幹部職別</div>
-          <div>{{admin_list[0].cadre}}</div>
+          <div>{{admin_list.cadre}}</div>
         </a>
       </div>
 
       <div class="col-md-3 col-sm-3 col-xs-6">
         <a
           data-toggle="tooltip"
-          :title="'組別 -> ' + admin_list[0].group1 + ' ' +admin_list[0].group2 "
+          :title="'組別 -> ' + admin_list.group1 + ' ' +admin_list.group2 "
           class="well top-block"
           href=""
         >
           <i class="glyphicon glyphicon-briefcase red"></i>
 
           <div style="color:red">中區組別</div>
-          <div v-if="admin_list[0].group2 == ''">{{admin_list[0].group1}}</div>
-          <div v-else-if="admin_list[0].group2 != ''">{{admin_list[0].group1}} / {{admin_list[0].group2}}</div>
+          <div v-if="admin_list.group2 == ''">{{admin_list.group1}}</div>
+          <div v-else-if="admin_list.group2 != ''">{{admin_list.group1}} / {{admin_list.group2}}</div>
         </a>
       </div>
     </div>
