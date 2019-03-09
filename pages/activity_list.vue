@@ -16,10 +16,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <a href>中區禪悅社</a>
           </li>
           <li>
-            <a href="">活動列表</a>
+            <a href>活動列表</a>
           </li>
         </ul>
       </div>
@@ -32,7 +32,11 @@
                 <i class="glyphicon glyphicon-list-alt"></i> 活動列表
               </h2>
             </div>
+
             <div class="box-content">
+              <nuxt-link class="btn btn-default btn-sm" to="add-activity">
+                <i class="glyphicon glyphicon-plus"></i> 新增活動
+              </nuxt-link>
               <table width="780" border="0" align="center" cellpadding="4" cellspacing="0">
                 <tr>
                   <td class="tdbline">
@@ -74,11 +78,11 @@
 
                             <tr v-for="(actli,key,id) in activity_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
-                                    <p>
-                                      <nuxt-link :to="{path:'activity-list-update',query:{id:key}}">修改</nuxt-link>
-                                      <br>
-                                      <a href="" @click="deleteActivity(key)">刪除</a>
-                                    </p>
+                                <p>
+                                  <nuxt-link :to="{path:'activity-list-update',query:{id:key}}">修改</nuxt-link>
+                                  <br>
+                                  <a href @click="deleteActivity(key)">刪除</a>
+                                </p>
                               </td>
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>{{actli.name}}</p>
@@ -115,11 +119,11 @@
 
                               <td align="right">
                                 <p>
-                                  <a href="">第一頁</a> |
-                                  <a href="">上一頁</a>
+                                  <a href>第一頁</a> |
+                                  <a href>上一頁</a>
                                   |
-                                  <a href="">下一頁</a> |
-                                  <a href="">最末頁</a>
+                                  <a href>下一頁</a> |
+                                  <a href>最末頁</a>
                                 </p>
                               </td>
                             </tr>
@@ -148,7 +152,8 @@ export default {
   name: "app",
   layout: "fun_page",
   asyncData(context) {
-    return axios.get("https://zen-nuxt.firebaseio.com/activity_list.json")
+    return axios
+      .get("https://zen-nuxt.firebaseio.com/activity_list.json")
       .then(res => {
         return {
           activity_list: res.data
@@ -162,13 +167,7 @@ export default {
         "您確定要刪除這個活動嗎?\n若確定刪除，則無法恢復"
       );
       if (confirmDel) {
-        axios
-          .delete(
-            "https://zen-nuxt.firebaseio.com/activity_list/" + dataId + ".json"
-          )
-          .then(res => {
-            location.reload();
-          });
+        this.$store.dispatch("delete_activity", dataId);
       }
     }
   }

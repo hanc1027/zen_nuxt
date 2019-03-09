@@ -78,11 +78,14 @@
               <h2 style="color:rgb(25, 40, 150)">
                 <font face="cursive">
                   近期會議
-                  <nuxt-link class="btn btn-default btn-sm" to="meeting-set">
+                  <nuxt-link class="btn btn-default btn-sm" to="/meeting-set">
                     <i class="glyphicon glyphicon-plus"></i> 新增會議
                   </nuxt-link>
-                  <nuxt-link  class="btn btn-default btn-sm" to="meeting-signature">
+                  <nuxt-link  class="btn btn-default btn-sm" to="/meeting-signature">
                     <i class="glyphicon glyphicon-list"></i> 幹部簽到
+                  </nuxt-link >
+                  <nuxt-link  class="btn btn-default btn-sm" to="/signature-list">
+                    <i class="glyphicon glyphicon-list"></i> 會議列表
                   </nuxt-link >
                   <br>
                 </font>
@@ -91,18 +94,18 @@
               <h2 style="color:rgb(25, 156, 150)">
                 <font face="cursive">
                   近期活動
-                  <nuxt-link class="btn btn-default btn-sm" to="add-activity">
+                  <nuxt-link class="btn btn-default btn-sm" to="/add-activity">
                     <i class="glyphicon glyphicon-plus"></i> 新增活動
                   </nuxt-link>
-                  <nuxt-link to="activity_list" class="btn btn-default btn-sm">
+                  <nuxt-link to="/activity_list" class="btn btn-default btn-sm">
                     <i class="glyphicon glyphicon-list"></i> 活動列表
                   </nuxt-link>
-                  <nuxt-link class="btn btn-default btn-sm" to="activity-duty-arrange">
+                  <!-- <nuxt-link class="btn btn-default btn-sm" to="/activity-duty-arrange">
                     <i class="glyphicon glyphicon-plus"></i> 新增執事表
                   </nuxt-link>
-                  <nuxt-link class="btn btn-default btn-sm" to="activity-duty-list">
+                  <nuxt-link class="btn btn-default btn-sm" to="/activity-duty-list">
                     <i class="glyphicon glyphicon-search"></i> 執事表查詢
-                  </nuxt-link>
+                  </nuxt-link> -->
                   <br>
                 </font>
               </h2>
@@ -110,10 +113,10 @@
               <h2 style="color:rgb(214, 180, 10)">
                 <font face="cursive">
                   法訊
-                  <nuxt-link class="btn btn-default btn-sm" to="add-ceremony">
+                  <nuxt-link class="btn btn-default btn-sm" to="/add-ceremony">
                     <i class="glyphicon glyphicon-plus"></i> 新增法訊
                   </nuxt-link>
-                  <nuxt-link class="btn btn-default btn-sm" to="ceremony-list">
+                  <nuxt-link class="btn btn-default btn-sm" to="/ceremony-list">
                     <i class="glyphicon glyphicon-list"></i> 法訊列表
                   </nuxt-link>
                   <br>
@@ -132,6 +135,9 @@ import axios from 'axios';
 // const admRef = firebase.database().ref("/admin_member/0");
 
 export default {
+  head:{
+    title:"中區禪悅社-首頁"
+  },
   name: "app",
   layout:'fun_page',
   asyncData(context) { 
@@ -142,7 +148,7 @@ export default {
         };
       })
       .catch(e => context.error(e));
-  }
+  },
 };
 </script>
 

@@ -14,7 +14,7 @@
             <fieldset>
               <div class="input-group input-group-lg">
                 <span class="input-group-addon">
-                  <i class="glyphicon glyphicon-user blue"></i>
+                  <i class="glyphicon glyphicon-envelope blue"></i>
                 </span>
                 <input
                   type="text"
@@ -55,6 +55,7 @@
               </p>
             </fieldset>
           </form>
+          <div v-if="isShow" class="alert alert-danger">輸入帳號或密碼錯誤!</div>
           <div class="alert alert-info">若忘記密碼或新進幹部，請洽資料保管組</div>
         </div>
         <!--/span-->
@@ -73,19 +74,29 @@ export default {
     return {
       isLogin: true,
       email: "",
-      password: ""
+      password: "",
+      isShow:false
     };
   },
   methods: {
-    onSubmit(){
-       this.$store.dispatch("authenticateUser", {
-        isLogin: this.isLogin,
-        email: this.email,
-        password: this.password
-      })
-      .then(() => {
-        this.$router.push('home');
-      });
+    onSubmit() {
+      this.$store
+        .dispatch("authenticateUser", {
+          isLogin: this.isLogin,
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push("home");
+        });
+      if (!this.$store.getters.isAuthenticated) {
+        this.isShow = false;
+      }
+    },
+  },
+  beforeCreate(){
+    if(this.$store.getters.yesLogout){
+      this.$router.push('home')
     }
   }
 };

@@ -10,11 +10,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title:"中區禪悅社後台管理",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: "中區禪悅社後台管理"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'img/mainicon.ico' },
@@ -100,6 +100,7 @@ module.exports = {
     */
     extend(config, ctx) {
 
-    }
+    },
+    vendor: ['external_library'] //讓alert可以使用，因為nuxt是server-side rendering，但alert是瀏覽器的api
   }
 }

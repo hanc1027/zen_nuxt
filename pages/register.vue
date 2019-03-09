@@ -12,7 +12,7 @@
           </li>
         </ul>
       </div>
-      <registerForm/>
+      <registerForm @submit="onSubmitted"/>
     </div>
     <!--/#content.col-md-0-->
   </div>
@@ -25,6 +25,13 @@ export default {
   layout: "fun_page",
   components: {
     registerForm
+  },
+  methods: {
+    onSubmitted(listData) {
+       this.$store.dispatch("addMember", listData).then(() => {
+          this.$router.push({ path: "/account" });
+      });
+    }
   }
 };
 </script>

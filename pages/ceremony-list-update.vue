@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import updateCeremonyForm from "@/components/forms/updateCeremonyForm";
 
 export default {
@@ -48,17 +48,14 @@ export default {
   },
   methods: {
     onSubmitted(listData) {
-      //axios.put() 修改資料
-      axios
-        .put(
-          "https://zen-nuxt.firebaseio.com/ceremony_list/" +
-            this.$route.query.id +
-            ".json",
-          listData
-        )
-        .then(result => {
-          alert("法訊已更新！");
-          this.$router.push("ceremony-list");
+      const addID = {
+        ...listData,
+        ceremonyId: this.$route.query.id
+      };
+      this.$store
+        .dispatch("editedCeremony", addID)
+        .then(() => {
+          this.$router.push("/ceremony-list");
         })
         .catch(e => console.log(e));
     }

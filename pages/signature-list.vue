@@ -5,13 +5,13 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <nuxt-link to="home">中區禪悅社</nuxt-link>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="">會議簽到狀況</a>
+            <a href>會議簽到狀況</a>
           </li>
         </ul>
       </div>
@@ -25,6 +25,9 @@
               </h2>
             </div>
             <div class="box-content">
+              <nuxt-link class="btn btn-default btn-sm" to="meeting-set">
+                <i class="glyphicon glyphicon-plus"></i> 新增會議
+              </nuxt-link>
               <form style="float:right" onSubmit="return checkMeetingSearch();">
                 <!-- 還須製作checkMeetingSearch()函式 -->
                 <input
@@ -39,6 +42,7 @@
               </form>
             </div>
             <br>
+
             <div class="box-content">
               <table width="780" border="0" align="center" cellpadding="4" cellspacing="0">
                 <tr>
@@ -86,7 +90,7 @@
                                   <!-- /signature-list-update?id={{key}}-->
                                   <nuxt-link :to="{path:'signature-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
-                                  <a href="" @click="deleteMeeting(key)">刪除</a>
+                                  <a href @click="deleteMeeting(key)">刪除</a>
                                 </p>
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
@@ -108,7 +112,7 @@
                                 <center>
                                   <p>人</p>
                                   <p>
-                                    <a href="">
+                                    <a href>
                                       <button class="btn btn-default btn-sm">查看</button>
                                     </a>
                                   </p>
@@ -133,10 +137,10 @@
                               </td>
                               <td align="right">
                                 <p>
-                                  <a href="">第一頁</a> |
-                                  <a href="">上一頁</a> |
-                                  <a href="">下一頁</a> |
-                                  <a href="">最末頁</a>
+                                  <a href>第一頁</a> |
+                                  <a href>上一頁</a> |
+                                  <a href>下一頁</a> |
+                                  <a href>最末頁</a>
                                 </p>
                               </td>
                             </tr>
@@ -188,13 +192,7 @@ export default {
         "您確定要刪除這個會議嗎?\n若確定刪除，簽到的人員紀錄會一併刪除，無法恢復"
       );
       if (confirmDel) {
-        axios
-          .delete(
-            "https://zen-nuxt.firebaseio.com/meeting_list/" + dataId + ".json"
-          )
-          .then(res => {
-            location.reload();
-          });
+       this.$store.dispatch("delete_meeting", dataId);
       }
     }
   }

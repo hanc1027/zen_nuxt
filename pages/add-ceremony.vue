@@ -28,19 +28,14 @@ export default {
     return {};
   },
   layout: "fun_page",
-  components:{
-      addCeremonyForm
+  components: {
+    addCeremonyForm
   },
   methods: {
     onSubmitted(listData) {
-      //axios.post() 新增資料
-      axios
-        .post("https://zen-nuxt.firebaseio.com/ceremony_list.json", listData)
-        .then(result => {
-          alert("法訊已新增！");
-          this.$router.push("/ceremony-list");
-        })
-        .catch(e => console.log(e));
+      this.$store.dispatch("addCeremony", listData).then(() => {
+        this.$router.push("/ceremony-list");
+      });
     }
   }
 };

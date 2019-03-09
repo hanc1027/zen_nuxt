@@ -26,6 +26,9 @@ import axios from "axios";
 import addMeetingForm from "@/components/forms/addMeetingForm";
 
 export default {
+  head:{
+    title:"中區禪悅社-會議新增"
+  },
   components: {
     addMeetingForm
   },

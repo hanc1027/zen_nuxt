@@ -5,17 +5,17 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <a href>中區禪悅社</a>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="">會議更新</a>
+            <a href>會議更新</a>
           </li>
         </ul>
       </div>
-      <updateMeetingForm :update_meeting_list="loadedMeeting" @submit="onSubmitted" />
+      <updateMeetingForm :update_meeting_list="loadedMeeting" @submit="onSubmitted"/>
     </div>
 
     <!--/#content.col-md-0-->
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 import updateMeetingForm from "@/components/forms/updateMeetingForm";
 
 export default {
@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-        update_meeting:""
+      update_meeting: ""
     };
   },
   layout: "fun_page",
@@ -51,16 +51,15 @@ export default {
       })
       .catch(e => context.error());
   },
-  methods:{
-     onSubmitted(listData) {
-         //axios.put() 修改資料
-      axios.put('https://zen-nuxt.firebaseio.com/meeting_list/'+this.$route.query.id+'.json', listData)
-        .then(result => {
-            alert("會議已更新！")
-            this.$router.push("signature-list")
-        })
-        .catch(e => console.log(e))
-     
+  methods: {
+    onSubmitted(listData) {
+      const addID = {
+        ...listData,
+        meetingId: this.$route.query.id
+      };
+      this.$store.dispatch("editedMeeting", addID).then(() => {
+            this.$router.push("signature-list");
+      }).catch(e => console.log(e));
     }
   }
 };

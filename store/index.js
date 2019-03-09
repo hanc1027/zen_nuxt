@@ -6,7 +6,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedLists: [],
-      token: null
+      token: null,
+      logout:true
     },
     mutations: {
       // setPosts(state, lists) {
@@ -17,6 +18,9 @@ const createStore = () => {
       },
       clearToken(state) {
         state.token = null;
+      },
+      setLoginOut(state){
+        state.logout = !state.logout
       }
     },
     actions: {
@@ -30,6 +34,140 @@ const createStore = () => {
             createdMeeting)
           .then(() => {
             alert("會議已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      addActivity(vuexContext, activity) {
+        const createdActivity = {
+          ...activity,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/activity_list.json?auth=" + vuexContext.state.token,
+            createdActivity)
+          .then(() => {
+            alert("活動已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      addCeremony(vuexContext, ceremony) {
+        const createdCeremony = {
+          ...ceremony,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/ceremony_list.json?auth=" + vuexContext.state.token,
+            createdCeremony)
+          .then(() => {
+            alert("法訊已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedMeeting(vuexContext, meeting) {
+        const newMeeting = {
+          ...meeting,
+          updatedDate: new Date()
+        };
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/meeting_list/" +
+            meeting.meetingId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newMeeting
+          )
+          .then(() => {
+            alert("會議已更新！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedActivity(vuexContext, activity) {
+        const newActivity = {
+          ...activity,
+          updatedDate: new Date()
+        };
+        //axios.put() 修改資料
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/activity_list/" +
+            activity.activityId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newActivity
+          )
+          .then(() => {
+            alert("活動已更新！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      editedCeremony(vuexContext, ceremony) {
+        const newCeremony = {
+          ...ceremony,
+          updatedDate: new Date()
+        };
+        //axios.put() 修改資料
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/ceremony_list/" +
+            ceremony.ceremonyId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newCeremony
+          )
+          .then(() => {
+            alert("法訊已更新！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      delete_meeting(vuexContext, id) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/meeting_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          ).then(() => {
+            location.reload();
+          })
+      },
+      delete_activity(vuexContext, id) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/activity_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(() => {
+            location.reload();
+          });
+      },
+      delete_ceremony(vuexContext, id) {
+        axios
+          .delete(
+            "https://zen-nuxt.firebaseio.com/ceremony_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(() => {
+            location.reload();
+          });
+      },
+      addMember(vuexContext, memeber) {
+        const createdMember = {
+          ...memeber,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/admin_member.json?auth=" + vuexContext.state.token,
+          createdMember)
+          .then(() => {
+            alert("幹部已新增！");
+            location.reload();
           })
           .catch(e => console.log(e));
       },
@@ -70,6 +208,7 @@ const createStore = () => {
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
           .catch(e => console.log(e));
+          
       },
       initAuth(vuexContext, req) {
         let token, expirationDate;
@@ -96,23 +235,24 @@ const createStore = () => {
           expirationDate = localStorage.getItem("tokenExpiration");
         }
         //expirationDate前的加號為「轉換成數字」用，等同於Number.parseInt() 
-        if (new Date().getTime() > +expirationDate || !token) {
+        if (new Date().getTime() > +expirationDate /*|| !token*/) {
           console.log('No token or invalid token');
           //若現在時間大於token的期滿日則清除token
-          vuexContext.commit("logout")
+          vuexContext.dispatch("logout")
           return;
         }
 
         vuexContext.commit("setToken", token);
+        vuexContext.commit("setLoginOut");
       },
       logout(vuexContext) {
+        vuexContext.commit("setLoginOut");
         vuexContext.commit('clearToken');
+
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
-        if (process.clent) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('tokenExpiration');
-        }
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
       }
     },
     getters: {
@@ -121,6 +261,9 @@ const createStore = () => {
       },
       isAuthenticated(state) {
         return state.token != null;
+      },
+      yesLogout(state){
+        return state.logout == true;
       }
     },
 

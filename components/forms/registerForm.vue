@@ -29,15 +29,15 @@
             <label class="control-label">帳號 (電子郵件)</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
-                  <i class="glyphicon glyphicon-envelope red"></i>
+                <i class="glyphicon glyphicon-envelope red"></i>
               </span>
               <input
-                name="new_username"
-                id="new_username"
+                name="new_email"
+                id="new_email"
                 type="text"
                 class="form-control"
-                placeholder="Username"
-                  v-model="email"
+                placeholder="E-mail"
+                v-model="addAdmin_list.email"
               >
               <!-- <span class="input-group-addon"><i>驗證</i></span> -->
             </div>
@@ -55,7 +55,7 @@
                 type="password"
                 class="form-control"
                 placeholder="Password"
-                  v-model="password"
+                v-model="addAdmin_list.password"
               >
               <span class="input-group-addon" onclick="showPasswd(1);">
                 <i class="glyphicon glyphicon-eye-open black"></i>
@@ -84,32 +84,37 @@
             <label class="control-label">性別</label>
             <br>
             <label class="radio-inline">
-              <input type="radio" name="new_gender" id="male" value="男" checked>男
+              <input
+                type="radio"
+                name="new_gender"
+                id="male"
+                value="男"
+                checked
+                v-model="addAdmin_list.gender"
+              >男
             </label>
             <label class="radio-inline">
-              <input type="radio" name="new_gender" id="female" value="女">女
+              <input
+                type="radio"
+                name="new_gender"
+                id="female"
+                value="女"
+                v-model="addAdmin_list.gender"
+              >女
             </label>
             <br>
             <br>
-
 
             <div class="control-group">
               <label class="control-label">學校</label>
               <div class="control">
-                <select name="new_school" id="new_school" data-rel="chosen">
-                  <option value="東海大學">東海大學</option>
-                  <option value="靜宜大學">靜宜大學</option>
-                  <option value="逢甲大學">逢甲大學</option>
-                  <option value="亞洲大學">亞洲大學</option>
-                  <option value="弘光科技大學">弘光科技大學</option>
-                  <option value="中興大學">中興大學</option>
-                  <option value="台中教育大學">台中教育大學</option>
-                  <option value="暨南大學">暨南大學</option>
-                  <option value="彰化師範大學">彰化師範大學</option>
-                  <option value="台中科技大學">台中科技大學</option>
-                  <option value="中國醫藥大學">中國醫藥大學</option>
-                  <option value="聯合大學">聯合大學</option>
-                  <option value="大葉大學">大葉大學</option>
+                <select
+                  name="new_school"
+                  id="new_school"
+                  data-rel="chosen"
+                  v-model="addAdmin_list.school"
+                >
+                  <option v-for="item in allSchool" :value="item.value">{{item.text}}</option>
                 </select>
               </div>
             </div>
@@ -128,30 +133,24 @@
                 type="text"
                 class="form-control"
                 placeholder="Department"
+                v-model="addAdmin_list.department"
               >
             </div>
             <br>
 
             <label class="control-label">級別</label>
             <br>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="grade_one" value="一" checked>一
+            <label class="radio-inline" v-for="item in allGrade">
+              <input
+                type="radio"
+                name="new_grade"
+                :id="item.id"
+                :value="item.value"
+                v-model="addAdmin_list.grade"
+              >
+              {{item.text}}
             </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="grade_two" value="二">二
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="grade_three" value="三">三
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="grade_four" value="四">四
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="master_one" value="碩一">碩一
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_grade" id="master_two" value="碩二">碩二
-            </label>
+
             <br>
             <br>
 
@@ -175,40 +174,18 @@
 
             <label class="control-label">中區組別1</label>
             <br>
-            <label class="radio-inline">
-              <input type="radio" name="new_group1" id="group1_activity" value="活動組" checked>活動組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group1" id="group1_data" value="資料保管組">資料保管組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group1" id="group1_art" value="美工設計組">美工設計組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group1" id="group1_public" value="公關組">公關組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group1" id="group1_equipment" value="設備組">設備組
+            <label class="radio-inline" v-for="item in allGroup">
+              <input type="radio" name="new_group1" :id="item.id1" :value="item.value">
+              {{item.text}}
             </label>
             <br>
             <br>
 
             <label class="control-label">中區組別2</label>
             <br>
-            <label class="radio-inline">
-              <input type="radio" name="new_group2" id="group2_activity" value="活動組">活動組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group2" id="group2_data" value="資料保管組">資料保管組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group2" id="group2_art" value="美工設計組">美工設計組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group2" id="group2_public" value="公關組">公關組
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_group2" id="group2_equipment" value="設備組">設備組
+            <label class="radio-inline" v-for="item in allGroup">
+              <input type="radio" name="new_group1" :id="item.id2" :value="item.value">
+              {{item.text}}
             </label>
             <br>
             <br>
@@ -224,6 +201,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Name in religion"
+                v-model="addAdmin_list.fahao"
               >
             </div>
             <br>
@@ -232,10 +210,22 @@
               <label class="control-label">中區總副召(只有總副召才可指派)</label>
               <br>
               <label class="radio-inline">
-                <input type="radio" name="new_group3" id="1" value="總召">總召
+                <input
+                  type="radio"
+                  name="new_group3"
+                  id="1"
+                  value="總召"
+                  v-model="addAdmin_list.group3"
+                >總召
               </label>
               <label class="radio-inline">
-                <input type="radio" name="new_group3" id="2" value="副召">副召
+                <input
+                  type="radio"
+                  name="new_group3"
+                  id="2"
+                  value="副召"
+                  v-model="addAdmin_list.group3"
+                >副召
               </label>
               <br>
               <br>
@@ -246,7 +236,6 @@
             </font>
             <br>
             <br>
-            <input name="action" type="hidden" id="action" value="join">
             <button type="submit" class="btn btn-default">提交</button>
           </div>
         </div>
@@ -259,28 +248,109 @@
 
 <script>
 export default {
+  head() {
+    return {
+      script: [{ src: "js/register.js" }]
+    };
+  },
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      addAdmin_list: {
+        name: "",
+        email: "",
+        password: "",
+        gender: "",
+        school: "",
+        department: "",
+        grade: "",
+        cadre: "",
+        group1: "",
+        group2: "",
+        group3: "",
+        fahao: "",
+        who_add: ""
+      },
+      allSchool: [
+        { text: "東海大學", value: "東海大學" },
+        { text: "靜宜大學", value: "靜宜大學" },
+        { text: "逢甲大學", value: "逢甲大學" },
+        { text: "亞洲大學", value: "亞洲大學" },
+        { text: "弘光科技大學", value: "弘光科技大學" },
+        { text: "中興大學", value: "中興大學" },
+        { text: "台中教育大學", value: "台中教育大學" },
+        { text: "暨南大學", value: "暨南大學" },
+        { text: "彰化師範大學", value: "彰化師範大學" },
+        { text: "台中科技大學", value: "台中科技大學" },
+        { text: "中國醫藥大學", value: "中國醫藥大學" },
+        { text: "大葉大學", value: "大葉大學" }
+      ],
+      allGrade: [
+        { id: "grade_one", text: "一", value: "一", checked: true },
+        { id: "grade_two", text: "二", value: "二" },
+        { id: "grade_three", text: "三", value: "三" },
+        { id: "grade_four", text: "四", value: "四" },
+        { id: "master_one", text: "碩一", value: "碩一" },
+        { id: "master_two", text: "碩二", value: "碩二" }
+      ],
+      allGroup: [
+        {
+          id1: "group1_activity",
+          id2: "group2_activity",
+          text: "活動組",
+          value: "活動組",
+          checked: true
+        },
+        {
+          id1: "group1_data",
+          id2: "group2_data",
+          text: "資料保管組",
+          value: "資料保管組"
+        },
+        {
+          id1: "group1_art",
+          id2: "group2_art",
+          text: "美工設計組",
+          value: "美工設計組"
+        },
+        {
+          id1: "group1_public",
+          id2: "group2_public",
+          text: "公關組",
+          value: "公關組"
+        },
+        {
+          id1: "group1_equipment",
+          id2: "group2_equipment",
+          text: "設備組",
+          value: "設備組"
+        }
+      ]
     };
   },
   methods: {
     onSubmit() {
+      if (!checkForm()) {
+        return false;
+      } else {
+        // Save the post
+        this.$emit("submit", this.addAdmin_list);
         //註冊新帳戶
-      let authUrl =
+        let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
           process.env.fbAPIKey;
-      this.$axios
-        .$post(authUrl, {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true
-        })
-        .then(result => {
-          console.log(result);
-        })
-        .catch(e => console.log(e));
+        this.$axios
+          .$post(authUrl, {
+            email: this.email,
+            password: this.password,
+            returnSecureToken: true
+          })
+          .then(result => {
+            console.log(result);
+          })
+          .catch(e => console.log(e));
+      }
     }
   }
 };

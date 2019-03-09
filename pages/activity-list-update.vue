@@ -47,19 +47,13 @@ export default {
   },
   methods: {
     onSubmitted(listData) {
-      //axios.put() 修改資料
-      axios
-        .put(
-          "https://zen-nuxt.firebaseio.com/activity_list/" +
-            this.$route.query.id +
-            ".json",
-          listData
-        )
-        .then(result => {
-          alert("活動已更新！");
-          this.$router.push("activity_list");
-        })
-        .catch(e => console.log(e));
+       const addID = {
+        ...listData,
+        activityId: this.$route.query.id
+      };
+      this.$store.dispatch("editedActivity", addID).then(() => {
+            this.$router.push("activity_list");
+      }).catch(e => console.log(e));
     }
   }
 };
