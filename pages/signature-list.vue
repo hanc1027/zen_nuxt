@@ -5,7 +5,7 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href>中區禪悅社</a>
+            <nuxt-link to="home">中區禪悅社</nuxt-link>
           </li>
           <li>
             <nuxt-link to="signature">會議簽到</nuxt-link>

@@ -36,7 +36,7 @@ export default {
   methods: {
     onSubmitted(listData) {
        this.$store.dispatch("addMeeting", listData).then(() => {
-          this.$router.push({ path: "signature-list" });
+          this.$router.push({ path: "/signature-list" });
       });
     }
   }

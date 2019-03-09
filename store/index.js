@@ -138,19 +138,19 @@ const createStore = () => {
             "https://zen-nuxt.firebaseio.com/activity_list/" + id + ".json?auth=" +
             vuexContext.state.token
           )
-          .then(()=> {
+          .then(() => {
             location.reload();
           });
       },
       delete_ceremony(vuexContext, id) {
         axios
-        .delete(
-          "https://zen-nuxt.firebaseio.com/ceremony_list/" + id + ".json?auth=" +
-          vuexContext.state.token
-        )
-        .then(()=> {
-          location.reload();
-        });
+          .delete(
+            "https://zen-nuxt.firebaseio.com/ceremony_list/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(() => {
+            location.reload();
+          });
       },
       // nuxtServerInit(vuexContext, context) {
       //   return axios.get('https://zen-nuxt.firebaseio.com/activity_list.json')
@@ -189,6 +189,7 @@ const createStore = () => {
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
           .catch(e => console.log(e));
+          
       },
       initAuth(vuexContext, req) {
         let token, expirationDate;
@@ -215,11 +216,10 @@ const createStore = () => {
           expirationDate = localStorage.getItem("tokenExpiration");
         }
         //expirationDate前的加號為「轉換成數字」用，等同於Number.parseInt() 
-        if (new Date().getTime() > +expirationDate || !token) {
+        if (new Date().getTime() > +expirationDate /*|| !token*/) {
           console.log('No token or invalid token');
           //若現在時間大於token的期滿日則清除token
-          vuexContext.commit("logout")
-          alert("安全機制：於特定時間自動幫您登出。")
+          vuexContext.dispatch("logout")
           return;
         }
 
@@ -227,12 +227,11 @@ const createStore = () => {
       },
       logout(vuexContext) {
         vuexContext.commit('clearToken');
+
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
-        if (process.clent) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('tokenExpiration');
-        }
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
       }
     },
     getters: {
