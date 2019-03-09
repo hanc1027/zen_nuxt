@@ -158,17 +158,17 @@
             <label class="control-label">校內幹部職稱</label>
             <br>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_zero" value="幹部" checked>幹部
+              <input type="radio" name="new_cadre" id="cadre_zero" value="幹部" v-model="addAdmin_list.cadre">幹部
             </label>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_first" value="社長">社長
+              <input type="radio" name="new_cadre" id="cadre_first" value="社長" v-model="addAdmin_list.cadre">社長
             </label>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_second" value="副社長">副社長
+              <input type="radio" name="new_cadre" id="cadre_second" value="副社長" v-model="addAdmin_list.cadre">副社長
             </label>
             <label class="radio-inline">
               <input type="radio" name="new_cadre" id="cadre_third" value="其他">其他
-              <input type="text" name="other_reason">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+              <input type="text" name="other_reason" v-model="addAdmin_list.cadre">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
             </label>
             <br>
             <br>
@@ -266,7 +266,7 @@ export default {
         school: "東海大學",
         department: "",
         grade: "一",
-        cadre: "",
+        cadre: "幹部",
         group1: "活動組",
         group2: "",
         group3: "",
