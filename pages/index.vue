@@ -92,6 +92,11 @@ export default {
       if (!this.$store.getters.isAuthenticated) {
         this.isShow = false;
       }
+    },
+  },
+  beforeCreate(){
+    if(this.$store.getters.yesLogout){
+      this.$router.push('home')
     }
   }
 };

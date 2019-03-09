@@ -6,7 +6,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedLists: [],
-      token: null
+      token: null,
+      logout:true
     },
     mutations: {
       // setPosts(state, lists) {
@@ -17,6 +18,9 @@ const createStore = () => {
       },
       clearToken(state) {
         state.token = null;
+      },
+      setLoginOut(state){
+        state.logout = !state.logout
       }
     },
     actions: {
@@ -152,6 +156,21 @@ const createStore = () => {
             location.reload();
           });
       },
+      addMember(vuexContext, memeber) {
+        const createdMember = {
+          ...memeber,
+          updatedDate: new Date()
+        };
+        //axios.post() 新增資料
+        axios
+          .post("https://zen-nuxt.firebaseio.com/admin_member.json?auth=" + vuexContext.state.token,
+          createdMember)
+          .then(() => {
+            alert("幹部已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
       // nuxtServerInit(vuexContext, context) {
       //   return axios.get('https://zen-nuxt.firebaseio.com/activity_list.json')
       //     .then(res => {
@@ -224,8 +243,10 @@ const createStore = () => {
         }
 
         vuexContext.commit("setToken", token);
+        vuexContext.commit("setLoginOut");
       },
       logout(vuexContext) {
+        vuexContext.commit("setLoginOut");
         vuexContext.commit('clearToken');
 
         Cookie.remove('jwt');
@@ -240,6 +261,9 @@ const createStore = () => {
       },
       isAuthenticated(state) {
         return state.token != null;
+      },
+      yesLogout(state){
+        return state.logout == true;
       }
     },
 
