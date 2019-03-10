@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <form role="form" @submit.prevent="onSubmit">
+    <form role="form" @submit.prevent="onSave">
       <div class="box col-md-12">
         <div class="box-inner">
           <div class="box-header well" data-original-title>
@@ -11,7 +11,7 @@
           <div class="box-content">
             <br>
 
-            <label class="control-label">姓名</label>
+            <label class="control-label" >姓名</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user blue"></i>
@@ -22,6 +22,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Original name"
+                v-model="addAdmin_list.name"
               >
             </div>
             <br>
@@ -74,6 +75,7 @@
                 type="password"
                 class="form-control"
                 placeholder="Confirm_Password"
+                v-model="verifypwd"
               >
               <span class="input-group-addon" onclick="showPasswd(2);">
                 <i class="glyphicon glyphicon-eye-open black"></i>
@@ -89,7 +91,6 @@
                 name="new_gender"
                 id="male"
                 value="男"
-                checked
                 v-model="addAdmin_list.gender"
               >男
             </label>
@@ -157,17 +158,13 @@
             <label class="control-label">校內幹部職稱</label>
             <br>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_zero" value="幹部" checked>幹部
+              <input type="radio" name="new_cadre" id="cadre_zero" value="幹部" v-model="addAdmin_list.cadre">幹部
             </label>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_first" value="社長">社長
+              <input type="radio" name="new_cadre" id="cadre_first" value="社長" v-model="addAdmin_list.cadre">社長
             </label>
             <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_second" value="副社長">副社長
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="new_cadre" id="cadre_third" value="其他">其他
-              <input type="text" name="other_reason">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+              <input type="radio" name="new_cadre" id="cadre_second" value="副社長" v-model="addAdmin_list.cadre">副社長
             </label>
             <br>
             <br>
@@ -175,7 +172,7 @@
             <label class="control-label">中區組別1</label>
             <br>
             <label class="radio-inline" v-for="item in allGroup">
-              <input type="radio" name="new_group1" :id="item.id1" :value="item.value">
+              <input type="radio" name="new_group1" :id="item.id1" :value="item.value" v-model="addAdmin_list.group1">
               {{item.text}}
             </label>
             <br>
@@ -184,7 +181,7 @@
             <label class="control-label">中區組別2</label>
             <br>
             <label class="radio-inline" v-for="item in allGroup">
-              <input type="radio" name="new_group1" :id="item.id2" :value="item.value">
+              <input type="radio" name="new_group2" :id="item.id2" :value="item.value" v-model="addAdmin_list.group2">
               {{item.text}}
             </label>
             <br>
@@ -250,23 +247,23 @@
 export default {
   head() {
     return {
-      script: [{ src: "js/register.js" }]
+      script: [
+        { src: "js/register.js" },]
     };
   },
   data() {
     return {
-      email: "",
-      password: "",
+      verifypwd:"",
       addAdmin_list: {
         name: "",
         email: "",
         password: "",
-        gender: "",
-        school: "",
+        gender: "男",
+        school: "東海大學",
         department: "",
-        grade: "",
-        cadre: "",
-        group1: "",
+        grade: "一",
+        cadre: "幹部",
+        group1: "活動組",
         group2: "",
         group3: "",
         fahao: "",
@@ -287,7 +284,7 @@ export default {
         { text: "大葉大學", value: "大葉大學" }
       ],
       allGrade: [
-        { id: "grade_one", text: "一", value: "一", checked: true },
+        { id: "grade_one", text: "一", value: "一"},
         { id: "grade_two", text: "二", value: "二" },
         { id: "grade_three", text: "三", value: "三" },
         { id: "grade_four", text: "四", value: "四" },
@@ -300,7 +297,6 @@ export default {
           id2: "group2_activity",
           text: "活動組",
           value: "活動組",
-          checked: true
         },
         {
           id1: "group1_data",
@@ -330,20 +326,20 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      if (!checkForm()) {
+    onSave() {
+      if (!checkForm(this)) {
         return false;
       } else {
         // Save the post
         this.$emit("submit", this.addAdmin_list);
-        //註冊新帳戶
+        // 註冊新帳戶
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
           process.env.fbAPIKey;
         this.$axios
           .$post(authUrl, {
-            email: this.email,
-            password: this.password,
+            email: this.addAdmin_list.email,
+            password: this.addAdmin_list.password,
             returnSecureToken: true
           })
           .then(result => {

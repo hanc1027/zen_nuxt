@@ -47,13 +47,16 @@ export default {
   },
   methods: {
     onSubmitted(listData) {
-       const addID = {
+      const addID = {
         ...listData,
         activityId: this.$route.query.id
       };
-      this.$store.dispatch("editedActivity", addID).then(() => {
-            this.$router.push("activity_list");
-      }).catch(e => console.log(e));
+      this.$store
+        .dispatch("editedActivity", addID)
+        .then(() => {
+          this.$router.push("activity_list");
+        })
+        .catch(e => console.log(e));
     }
   }
 };

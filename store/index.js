@@ -7,7 +7,7 @@ const createStore = () => {
     state: {
       loadedLists: [],
       token: null,
-      logout:true
+      logout: true,
     },
     mutations: {
       // setPosts(state, lists) {
@@ -19,9 +19,10 @@ const createStore = () => {
       clearToken(state) {
         state.token = null;
       },
-      setLoginOut(state){
+      setLoginOut(state) {
         state.logout = !state.logout
-      }
+      },
+     
     },
     actions: {
       addMeeting(vuexContext, meeting) {
@@ -157,16 +158,49 @@ const createStore = () => {
           });
       },
       addMember(vuexContext, memeber) {
+        var today = new Date()
+        var today_Date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" "
+        +today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
         const createdMember = {
           ...memeber,
-          updatedDate: new Date()
+          joinDate: today_Date,
         };
         //axios.post() 新增資料
         axios
           .post("https://zen-nuxt.firebaseio.com/admin_member.json?auth=" + vuexContext.state.token,
-          createdMember)
+            createdMember)
           .then(() => {
             alert("幹部已新增！");
+            location.reload();
+          })
+          .catch(e => console.log(e));
+      },
+      delete_admin(vuexContext,id){
+        axios
+        .delete(
+          "https://zen-nuxt.firebaseio.com/admin_member/" + id + ".json?auth=" +
+          vuexContext.state.token
+        )
+        .then(() => {
+          location.reload();
+        });
+      },
+      editedAccount(vuexContext, account) {
+        const newaccount = {
+          ...account,
+          updatedDate: new Date()
+        };
+        //axios.put() 修改資料
+        axios
+          .put(
+            "https://zen-nuxt.firebaseio.com/admin_member/" +
+            account.accountId +
+            ".json?auth=" +
+            vuexContext.state.token,
+            newaccount
+          )
+          .then(() => {
+            alert("帳號已更新！");
             location.reload();
           })
           .catch(e => console.log(e));
@@ -186,6 +220,7 @@ const createStore = () => {
       //   vuexContext.commit("setLists", lists);
       // },
       authenticateUser(vuexContext, authData) {
+        
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
           process.env.fbAPIKey;
@@ -199,16 +234,18 @@ const createStore = () => {
             vuexContext.commit("setToken", result.idToken);
             //設定客戶端儲存token和token的期滿
             //防止token在每次頁面更新時都會變成null
+            localStorage.setItem("mainEmail",authData.email)
             localStorage.setItem("token", result.idToken);
             localStorage.setItem(
               "tokenExpiration", //expiresIn是firebase email auth原本的參數
               new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
             );
+            Cookie.set("mainEmail",authData.email)
             Cookie.set("jwt", result.idToken)
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
           .catch(e => console.log(e));
-          
+
       },
       initAuth(vuexContext, req) {
         let token, expirationDate;
@@ -248,23 +285,22 @@ const createStore = () => {
       logout(vuexContext) {
         vuexContext.commit("setLoginOut");
         vuexContext.commit('clearToken');
-
+        
+        Cookie.remove('mainEmail');
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
+        localStorage.removeItem('mainEmail');
         localStorage.removeItem('token');
         localStorage.removeItem('tokenExpiration');
       }
     },
     getters: {
-      loadedPosts(state) {
-        return state.loadedLists;
-      },
       isAuthenticated(state) {
         return state.token != null;
       },
-      yesLogout(state){
+      yesLogout(state) {
         return state.logout == true;
-      }
+      },
     },
 
   });

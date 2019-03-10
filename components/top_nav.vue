@@ -63,6 +63,9 @@ export default {
         })
         .catch(e => console.log(e));
     },
+    props: {
+      email:"adminEmail"
+    },
     onLogout() {
       alert("您已登出。");
       this.$store.dispatch("logout");
@@ -71,6 +74,7 @@ export default {
   },
   mounted() {
     this.getData();
+    console.log("NewEmail=",this.email)
   }
 };
 </script>

@@ -1,24 +1,24 @@
-function checkForm() {
-	if ($("#new_name").val() == "") {
+function checkForm(context) {
+	if (context.addAdmin_list.name == "") {
 		alert("請填寫姓名!");
 		$("#new_name").focus();
 		return false;
 	}
-	if ($("#new_email").val() == "") {
+	if (context.addAdmin_list.email == "") {
 		alert("請填寫電子郵件!");
 		$("#new_email").focus();
 		return false;
 	}
-	if (!checkmail($("#new_email").val())) {
+	if (!checkmail(context.addAdmin_list.email)) {
 		$("#new_email").focus();
 		return false;
 	}
-	if (!check_passwd($("#new_passwd").val(), $("#new_passwd_check").val())) {
+	if (!check_passwd(context.addAdmin_list.password, context.verifypwd)) {
 		$("#new_passwd").focus();
 		return false;
 	}
 
-	if ($("#new_department").val() == "NULL") {
+	if (context.addAdmin_list.department == "") {
 		alert("請填寫科系!");
 		$("#new_department").focus();
 		return false;
@@ -50,7 +50,7 @@ function check_passwd(pw1, pw2) {
 
 function checkmail(myEmail) {
 	var filter = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	if (filter.test(myEmail.val())) {
+	if (filter.test(myEmail)) {
 		return true;
 	}
 	alert("電子郵件格式不正確");
