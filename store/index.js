@@ -288,6 +288,7 @@ const createStore = () => {
 
         Cookie.remove('mainEmail');
         Cookie.remove('admId');
+        Cookie.remove('admName');
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
         localStorage.removeItem('mainEmail');

@@ -29,6 +29,7 @@ export default {
           for (var fireBaseId in res.data) {
             if (Cookie.get("mainEmail") == res.data[fireBaseId].email) {
               Cookie.set("admId", fireBaseId);
+              Cookie.set("admName", res.data[fireBaseId].name);
             }
           }
         });
