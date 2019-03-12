@@ -1,8 +1,8 @@
 <template>
   <div>
-    <top-nav email="adminEmail"/>
+    <top-nav/>
     <left-nav/>
-    <nuxt />
+    <nuxt/>
     <zenFooter/>
   </div>
 </template>
@@ -11,26 +11,34 @@
 import topNav from "@/components/top_nav.vue";
 import leftNav from "@/components/left_nav.vue";
 import zenFooter from "@/components/footer.vue";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
+import axios from "axios";
 
 export default {
-  middleware:['check-auth','auth'],
-    components: {
-    topNav,leftNav,zenFooter
+  middleware: ["check-auth", "auth"],
+  components: {
+    topNav,
+    leftNav,
+    zenFooter
   },
-  data(){
-    return {
-      adminEmail:""
+  methods: {
+    getAdminId() {
+      axios
+        .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+        .then(res => {
+          for (var fireBaseId in res.data) {
+            if (Cookie.get("mainEmail") == res.data[fireBaseId].email) {
+              Cookie.set("admId", fireBaseId);
+            }
+          }
+        });
     }
   },
-  mounted(){
-    this.adminEmail = Cookie.get('mainEmail');
-    // console.log("mainEmail=",Cookie.get('mainEmail'))
+  mounted() {
+    this.getAdminId();
   }
-  
-}
+};
 </script>
 
 <style>
-
 </style>

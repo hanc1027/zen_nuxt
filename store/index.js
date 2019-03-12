@@ -22,7 +22,7 @@ const createStore = () => {
       setLoginOut(state) {
         state.logout = !state.logout
       },
-     
+
     },
     actions: {
       addMeeting(vuexContext, meeting) {
@@ -159,8 +159,8 @@ const createStore = () => {
       },
       addMember(vuexContext, memeber) {
         var today = new Date()
-        var today_Date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" "
-        +today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+        var today_Date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " "
+          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         const createdMember = {
           ...memeber,
           joinDate: today_Date,
@@ -175,15 +175,15 @@ const createStore = () => {
           })
           .catch(e => console.log(e));
       },
-      delete_admin(vuexContext,id){
+      delete_admin(vuexContext, id) {
         axios
-        .delete(
-          "https://zen-nuxt.firebaseio.com/admin_member/" + id + ".json?auth=" +
-          vuexContext.state.token
-        )
-        .then(() => {
-          location.reload();
-        });
+          .delete(
+            "https://zen-nuxt.firebaseio.com/admin_member/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(() => {
+            location.reload();
+          });
       },
       editedAccount(vuexContext, account) {
         const newaccount = {
@@ -220,7 +220,7 @@ const createStore = () => {
       //   vuexContext.commit("setLists", lists);
       // },
       authenticateUser(vuexContext, authData) {
-        
+
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
           process.env.fbAPIKey;
@@ -234,13 +234,13 @@ const createStore = () => {
             vuexContext.commit("setToken", result.idToken);
             //設定客戶端儲存token和token的期滿
             //防止token在每次頁面更新時都會變成null
-            localStorage.setItem("mainEmail",authData.email)
+            localStorage.setItem("mainEmail", authData.email)
             localStorage.setItem("token", result.idToken);
             localStorage.setItem(
               "tokenExpiration", //expiresIn是firebase email auth原本的參數
               new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
             );
-            Cookie.set("mainEmail",authData.email)
+            Cookie.set("mainEmail", authData.email)
             Cookie.set("jwt", result.idToken)
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
@@ -285,8 +285,9 @@ const createStore = () => {
       logout(vuexContext) {
         vuexContext.commit("setLoginOut");
         vuexContext.commit('clearToken');
-        
+
         Cookie.remove('mainEmail');
+        Cookie.remove('admId');
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
         localStorage.removeItem('mainEmail');

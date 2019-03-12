@@ -46,6 +46,7 @@
 
 <script>
 import axios from "axios";
+import Cookie from "js-cookie";
 
 export default {
   data() {
@@ -55,17 +56,14 @@ export default {
   },
   methods: {
     getData() {
-      const adm = this;
       axios
-        .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+        .get("https://zen-nuxt.firebaseio.com/admin_member/"+Cookie.get('admId')+".json")
         .then(res => {
-          this.adm_username = res.data[0].username;
+          this.adm_username = res.data.name;
         })
         .catch(e => console.log(e));
     },
-    props: {
-      email:"adminEmail"
-    },
+   
     onLogout() {
       alert("您已登出。");
       this.$store.dispatch("logout");
@@ -74,7 +72,6 @@ export default {
   },
   mounted() {
     this.getData();
-    console.log("NewEmail=",this.email)
   }
 };
 </script>
