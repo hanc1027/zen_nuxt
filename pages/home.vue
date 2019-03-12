@@ -129,21 +129,24 @@ export default {
   layout: "fun_page",
   data() {
     return {
-      admin_list: {}
+      admin_list: {
+        school:"",
+        department:"",
+        grade:"",
+        cadre:"",
+        group1:"",
+        group2:""
+      }
     };
   },
   methods: {
     getData() {
-      axios
-        .get(
-          "https://zen-nuxt.firebaseio.com/admin_member/" +
-            Cookie.get("admId") +
-            ".json"
-        )
-        .then(res => {
-          this.admin_list = res.data;
-        })
-        .catch(e => context.error(e));
+     this.admin_list.school = Cookie.get('admSchool')
+     this.admin_list.department = Cookie.get('admDepartment')
+     this.admin_list.grade = Cookie.get('admGrade')
+     this.admin_list.cadre = Cookie.get('admCadre')
+     this.admin_list.group1 = Cookie.get('admGroup1')
+     this.admin_list.group2 = Cookie.get('admGroup2')
     }
   },
   mounted() {

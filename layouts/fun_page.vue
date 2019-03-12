@@ -30,6 +30,14 @@ export default {
             if (Cookie.get("mainEmail") == res.data[fireBaseId].email) {
               Cookie.set("admId", fireBaseId);
               Cookie.set("admName", res.data[fireBaseId].name);
+              Cookie.set("admFahao", res.data[fireBaseId].fahao);
+              Cookie.set("admDepartment", res.data[fireBaseId].department);
+              Cookie.set("admGrade", res.data[fireBaseId].grade);
+              Cookie.set("admSchool", res.data[fireBaseId].school);
+              Cookie.set("admCadre", res.data[fireBaseId].cadre);
+              Cookie.set("admGroup1", res.data[fireBaseId].group1);
+              Cookie.set("admGroup2", res.data[fireBaseId].group2);
+              Cookie.set("admGroup3", res.data[fireBaseId].group3);
             }
           }
         });

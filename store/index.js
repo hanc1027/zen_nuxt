@@ -289,6 +289,15 @@ const createStore = () => {
         Cookie.remove('mainEmail');
         Cookie.remove('admId');
         Cookie.remove('admName');
+        Cookie.remove('admFahao');
+        Cookie.remove('admDepartment');
+        Cookie.remove('admGrade');
+        Cookie.remove('admSchool');
+        Cookie.remove('admCadre');
+        Cookie.remove('admGroup1');
+        Cookie.remove('admGroup2');
+        Cookie.remove('admGroup3');
+
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
         localStorage.removeItem('mainEmail');
