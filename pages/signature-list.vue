@@ -113,7 +113,7 @@
                                   <p>人</p>
                                   <p>
                                     <a href>
-                                      <button class="btn btn-default btn-sm">查看</button>
+                                     <nuxt-link :to="{path:'meeting-member-list',query:{id:key}}"><button class="btn btn-default btn-sm">查看</button></nuxt-link>
                                     </a>
                                   </p>
                                 </center>

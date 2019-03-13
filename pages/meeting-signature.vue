@@ -282,87 +282,22 @@ export default {
               var list = {
                 name: Cookie.get("admName"),
                 fahao: Cookie.get("admFahao"),
-                school: Cookie.get("admShool"),
+                school: Cookie.get("admSchool"),
                 cadre: Cookie.get("admCadre"),
                 department: Cookie.get("admDepartment"),
                 grade: Cookie.get("admGrade"),
                 meeting_id: id,
                 sign_time: meetingSignTime
               };
-
               axios.post(
                   "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
-                    Cookie.get("jwt"),
-                  list
+                    Cookie.get("jwt"),list
                 );
             }
           }
-
           /** 計算會議時間  eno **/
         });
-
-      // axios
-      //   .put(
-      //     "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
-      //       Cookie.get("jwt"),
-      //     list
-      //   )
-      //   .then(res => {});
     },
-    isAbsent(id, meeting) {
-      if (this.rightHours <= 0 && this.rightMins <= 0 && this.rightSecs <= 0) {
-        meeting.mode = "absent";
-        axios
-          .put(
-            "https://zen-nuxt.firebaseio.com/meeting_list/" +
-              id +
-              ".json?auth=" +
-              Cookie.get("jwt"),
-            meeting
-          )
-          .then(() => {});
-      }
-    },
-    signature(id, meeting) {
-      this.diffOfNowAndMeeting(false, id, meeting);
-      if (this.leftHours > 0) {
-        this.notYetToSign(this.leftHours, this.leftMins, this.leftSecs);
-      } else if (this.leftHours <= 0) {
-        if (this.leftMins > 30) {
-          this.notYetToSign(this.leftHours, this.leftMins, this.leftSecs);
-        } else if (this.leftMins <= 30 || this.rightHours >= 0) {
-          if (this.leftMins <= 30 && this.leftMins > 0) {
-            meeting.mode = "onTime";
-            meeting.sign_time = new Date();
-            axios
-              .put(
-                "https://zen-nuxt.firebaseio.com/meeting_list/" +
-                  id +
-                  ".json?auth=" +
-                  Cookie.get("jwt"),
-                meeting
-              )
-              .then(() => {});
-          } else if (this.leftMins == 0 && this.rightHours >= 0) {
-            if (this.rightMins >= 0) {
-              if (this.rightSecs > 0) {
-                meeting.mode = "late";
-                meeting.sign_time = new Date();
-                axios
-                  .put(
-                    "https://zen-nuxt.firebaseio.com/meeting_list/" +
-                      id +
-                      ".json?auth=" +
-                      Cookie.get("jwt"),
-                    meeting
-                  )
-                  .then(() => {});
-              }
-            }
-          }
-        }
-      }
-    }
   }
 };
 </script>
