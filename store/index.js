@@ -28,7 +28,8 @@ const createStore = () => {
       addMeeting(vuexContext, meeting) {
         const createdMeeting = {
           ...meeting,
-          updatedDate: new Date()
+          updatedDate: new Date(),
+          mode: "notYetSign"
         };
         axios
           .post("https://zen-nuxt.firebaseio.com/meeting_list.json?auth=" + vuexContext.state.token,
@@ -111,7 +112,7 @@ const createStore = () => {
       editedCeremony(vuexContext, ceremony) {
         const newCeremony = {
           ...ceremony,
-          updatedDate: new Date()
+          updatedDate: new Date(),
         };
         //axios.put() 修改資料
         axios
