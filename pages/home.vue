@@ -141,14 +141,30 @@ export default {
   },
   methods: {
     getData() {
-     this.admin_list.school = Cookie.get('admSchool')
-     this.admin_list.department = Cookie.get('admDepartment')
-     this.admin_list.grade = Cookie.get('admGrade')
-     this.admin_list.cadre = Cookie.get('admCadre')
-     this.admin_list.group1 = Cookie.get('admGroup1')
-     this.admin_list.group2 = Cookie.get('admGroup2')
+      
+      this.admin_list.school = Cookie.get("admSchool");
+      this.admin_list.department = Cookie.get("admDepartment");
+      this.admin_list.grade = Cookie.get("admGrade");
+      this.admin_list.cadre = Cookie.get("admCadre");
+      this.admin_list.group1 = Cookie.get("admGroup1");
+      this.admin_list.group2 = Cookie.get("admGroup2");
     }
   },
+  /*
+  asyncData({ contexts }) {
+    console.log("Enter asy")
+    return {
+      admin_list: {
+        school: Cookie.get("admSchool"),
+        department: Cookie.get("admDepartment"),
+        grade: Cookie.get("admGrade"),
+        cadre: Cookie.get("admCadre"),
+        group1: Cookie.get("admGroup1"),
+        group2: Cookie.get("admGroup2")
+      }
+    };
+  },
+  //*/
   mounted() {
     this.getData();
   }

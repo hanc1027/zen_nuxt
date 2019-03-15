@@ -77,22 +77,10 @@
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <center>
-                                    <div class="absent" v-if="meetinglist.mode=='absent'">未參加</div>
-                                    <div class="late" v-else-if="meetinglist.mode=='late'">遲到
-                                      <br>
-                                      {{meetinglist.sign_time}}
-                                    </div>
-                                    <div class="onTime" v-else-if="meetinglist.mode=='onTime'">已簽到
-                                      <br>
-                                      {{meetinglist.sign_time}}
-                                    </div>
-                                    <div
-                                      class="notYetSign"
-                                      v-else-if="meetinglist.mode=='notYetSign'"
-                                    >
+                                    <div class="notYetSign" v-if="!isSign(key)">
                                       <button
                                         class="btn btn-danger btn-sm"
-                                        @click="changeMode('sign',key,meetinglist)"
+                                        @click="signature(key,meetinglist)"
                                       >
                                         <font color="white">簽到</font>
                                       </button>
@@ -129,14 +117,6 @@
                               <td valign="middle">
                                 <p>會議總數：{{meeting_list_len}}</p>
                               </td>
-                              <td align="right">
-                                <p>
-                                  <a href>第一頁</a> |
-                                  <a href>上一頁</a> |
-                                  <a href>下一頁</a> |
-                                  <a href>最末頁</a>
-                                </p>
-                              </td>
                             </tr>
                           </table>
                           <p>&nbsp;</p>
@@ -165,43 +145,55 @@ export default {
   name: "app",
   data() {
     return {
-      meeting_list_len: Number,
-      meeting_list: {},
-      mode: ""
+      meeting_list_len: "",
+      today: new Date().getTime(),
+      cc: 0
     };
   },
   layout: "fun_page",
-  // asyncData(context) {
-  //   return axios
-  //     .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
-  //     .then(res => {
-  //       return {
-  //         meeting_list: res.data
-  //       };
-  //     })
-  //     .catch(e => context.error(e));
-  // },
   mounted() {
-    axios
+    this.meeting_list_len = Object.keys(this.meeting_list).length;
+  },
+  asyncData() {
+    return axios
       .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
       .then(res => {
-        for (let meeting_id in res.data) {
-          if (
-            //代表未參加或是還沒簽到
-            res.data[meeting_id].mode == "notYetSign"
-          ) {
-            this.changeMode("absent", meeting_id, res.data[meeting_id]);
-          }
-        }
-        this.meeting_list = res.data;
+        return {
+          meeting_list: res.data
+        };
       })
       .catch(e => console.log(e));
   },
   methods: {
+    isSign(id) {
+      axios
+        .get("https://zen-nuxt.firebaseio.com/meeting_member_list.json")
+        .then(res => {
+          for (let key in res.data) {
+            console.log("Enter for")
+            console.log(res.data[key].name+"||"+Cookie.get("admName"))
+            console.log(res.data[key].meeting_id +"||"+id)
+            if (
+              res.data[key].name == Cookie.get("admName") &&
+              res.data[key].meeting_id == id
+            ) {
+              if (
+                res.data[key].mode == "onTime" ||
+                res.data[key].mode == "late"
+              ) {
+                console.log("return true")
+                return true;
+              }
+            }
+          }
+          console.log("return false")
+          return false;
+        });
+    },
     getMeetingLen() {
       this.meeting_list_len = Object.keys(this.meeting_list).length;
     },
-    changeMode(action, id, meeting) {
+    signature(id, meeting) {
       axios
         .get("https://zen-nuxt.firebaseio.com/meeting_list/" + id + ".json")
         .then(res => {
@@ -211,93 +203,83 @@ export default {
           var meeting_end = new Date(end).getTime();
 
           var now = new Date().getTime();
-
-          /** 計算會議時間  start**/
-
-          if (res.data.mode == "notYetSign") {
-            //標示未參加
-            if (now > meeting_end) {
-              meeting.mode = "absent";
-              axios.put(
-                "https://zen-nuxt.firebaseio.com/meeting_list/" +
-                  id +
-                  ".json?auth=" +
-                  Cookie.get("jwt"),
-                meeting
-              );
-            }
-            //會議前三十分鐘才可以簽到
-            else if (action == "sign") {
-              let newTime = new Date();
-              let meetingSignTime =
-                newTime.getFullYear() +
-                "/" +
-                (newTime.getMonth() + 1) +
-                "/" +
-                newTime.getDate() +
-                " " +
-                newTime.getHours() +
-                ":" +
-                newTime.getMinutes() +
-                ":" +
-                newTime.getSeconds();
-              if ((meeting_start - now) / 60000 > 30) {
-                var hour = Math.floor((meeting_start - now) / 3600000);
-                var min = Math.round((meeting_start - now) / 60000 - hour * 60);
-                alert(
-                  "會議前三十分鐘才可進行簽到。\n距離此會議還有" +
-                    hour +
-                    "小時" +
-                    min +
-                    "分。"
-                );
-              } else if (
-                (meeting_start - now) / 60000 < 30 &&
-                (meeting_start - now) / 60000 >= 0
-              ) {
-                meeting.mode = "onTime";
-
-                meeting.sign_time = meetingSignTime;
-                alert("已簽到。\n簽到時間：" + meeting.sign_time);
-                axios.put(
-                  "https://zen-nuxt.firebaseio.com/meeting_list/" +
-                    id +
-                    ".json?auth=" +
-                    Cookie.get("jwt"),
-                  meeting
-                );
-              } else if (now > meeting_start && now < meeting_end) {
-                meeting.mode = "late";
-                meeting.sign_time = meetingSignTime;
-                alert("已簽到。\n簽到時間：" + meeting.sign_time);
-                axios.put(
-                  "https://zen-nuxt.firebaseio.com/meeting_list/" +
-                    id +
-                    ".json?auth=" +
-                    Cookie.get("jwt"),
-                  meeting
-                );
-              }
-
-              var list = {
-                name: Cookie.get("admName"),
-                fahao: Cookie.get("admFahao"),
-                school: Cookie.get("admSchool"),
-                cadre: Cookie.get("admCadre"),
-                department: Cookie.get("admDepartment"),
-                grade: Cookie.get("admGrade"),
-                meeting_id: id,
-                sign_time: meetingSignTime
-              };
+          let newTime = new Date();
+          let meetingSignTime =
+            newTime.getFullYear() +
+            "/" +
+            (newTime.getMonth() + 1) +
+            "/" +
+            newTime.getDate() +
+            " " +
+            newTime.getHours() +
+            ":" +
+            newTime.getMinutes() +
+            ":" +
+            newTime.getSeconds();
+          axios.get("");
+          if (now > meeting_end) {
+            alert("時間已超過，不可簽到");
+          } else if ((meeting_start - now) / 60000 > 30) {
+            var hour = Math.floor((meeting_start - now) / 3600000);
+            var min = Math.round((meeting_start - now) / 60000 - hour * 60);
+            alert(
+              "會議前三十分鐘才可進行簽到。\n距離此會議還有" +
+                hour +
+                "小時" +
+                min +
+                "分。"
+            );
+          } else if (
+            (meeting_start - now) / 60000 < 30 &&
+            (meeting_start - now) / 60000 >= 0
+          ) {
+            var list = {
+              name: Cookie.get("admName"),
+              fahao: Cookie.get("admFahao"),
+              school: Cookie.get("admSchool"),
+              cadre: Cookie.get("admCadre"),
+              department: Cookie.get("admDepartment"),
+              grade: Cookie.get("admGrade"),
+              meeting_id: id,
+              mode: "onTime",
+              sign_time: meetingSignTime
+            };
+            if (this.isSign(id) != false) {
+              alert("已簽到。\n準時");
               axios.post(
-                  "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
-                    Cookie.get("jwt"),list
-                );
+                "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                  Cookie.get("jwt"),
+                list
+              );
+            }else {
+              alert("您已簽到過！")
+            }
+          } else if (now > meeting_start && now < meeting_end) {
+            var list = {
+              name: Cookie.get("admName"),
+              fahao: Cookie.get("admFahao"),
+              school: Cookie.get("admSchool"),
+              cadre: Cookie.get("admCadre"),
+              department: Cookie.get("admDepartment"),
+              grade: Cookie.get("admGrade"),
+              meeting_id: id,
+              mode: "late",
+              sign_time: meetingSignTime
+            };
+           if (this.isSign(id) != false) {
+              alert("已簽到。\n遲到");
+              axios.post(
+                "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                  Cookie.get("jwt"),
+                list
+              );
+            }else {
+              alert("您已簽到過！")
             }
           }
           /** 計算會議時間  eno **/
         });
-    },
+    }
   }
 };
 </script>

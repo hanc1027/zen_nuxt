@@ -110,10 +110,12 @@
                               </td>
                               <td width="13%" align="center" bgcolor="#FFFFFF">
                                 <center>
-                                  <p>人</p>
+                                  <p>{{meeting.people_num}} 人</p>
                                   <p>
                                     <a href>
-                                     <nuxt-link :to="{path:'meeting-member-list',query:{id:key}}"><button class="btn btn-default btn-sm">查看</button></nuxt-link>
+                                      <nuxt-link :to="{path:'meeting-member-list',query:{id:key}}">
+                                        <button class="btn btn-default btn-sm">查看</button>
+                                      </nuxt-link>
                                     </a>
                                   </p>
                                 </center>
@@ -134,14 +136,6 @@
                             <tr>
                               <td valign="middle">
                                 <p>會議總數：{{meeting_list_len}}</p>
-                              </td>
-                              <td align="right">
-                                <p>
-                                  <a href>第一頁</a> |
-                                  <a href>上一頁</a> |
-                                  <a href>下一頁</a> |
-                                  <a href>最末頁</a>
-                                </p>
                               </td>
                             </tr>
                           </table>
@@ -164,12 +158,13 @@
 
 <script>
 import axios from "axios";
+import Cookie from "js-cookie";
 
 export default {
   name: "app",
   data() {
     return {
-      meeting_list_len: ""
+      meeting_list_len: "",
     };
   },
   layout: "fun_page",
@@ -178,13 +173,14 @@ export default {
       .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
       .then(res => {
         return {
-          meeting_list: res.data
+          meeting_list: res.data,
         };
       })
       .catch(e => context.error(e));
   },
   mounted() {
     this.meeting_list_len = Object.keys(this.meeting_list).length;
+    this.getMeetingNum();
   },
   methods: {
     deleteMeeting(dataId) {
@@ -192,8 +188,34 @@ export default {
         "您確定要刪除這個會議嗎?\n若確定刪除，簽到的人員紀錄會一併刪除，無法恢復"
       );
       if (confirmDel) {
-       this.$store.dispatch("delete_meeting", dataId);
+        this.$store.dispatch("delete_meeting", dataId);
       }
+    },
+    getMeetingNum() {
+      var meeting_num = 0;
+      axios
+        .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
+        .then(res => {
+          for (var id in res.data) {
+            axios
+              .get("https://zen-nuxt.firebaseio.com/meeting_member_list.json")
+              .then(res2 => {
+                for (var id2 in res2.data) {
+                  if (id == res2.data[id2].meeting_id) {
+                    meeting_num++;
+                    res.data[id].people_num = meeting_num;
+                  }
+                  axios.put(
+                    "https://zen-nuxt.firebaseio.com/meeting_list/" +
+                      id +
+                      ".json?auth=" +
+                      Cookie.get("jwt"),
+                    res.data[id]
+                  );
+                }
+              });
+          }
+        });
     }
   }
 };

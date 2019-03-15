@@ -88,14 +88,6 @@
                               <td valign="middle">
                                 <p>資料筆數：</p>
                               </td>
-                              <td align="right">
-                                <p>
-                                  <a href="">第一頁</a> |
-                                  <a href="">上一頁</a> |
-                                  <a href="">下一頁</a> |
-                                  <a href="">最末頁</a>
-                                </p>
-                              </td>
                             </tr>
                           </table>
                           <p>&nbsp;</p>

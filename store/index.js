@@ -29,9 +29,7 @@ const createStore = () => {
         let newTime = new Date();
         const createdMeeting = {
           ...meeting,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
-          mode: "notYetSign",
-          sign_time: new Date().getTime()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         axios
           .post("https://zen-nuxt.firebaseio.com/meeting_list.json?auth=" + vuexContext.state.token,
@@ -45,7 +43,7 @@ const createStore = () => {
       addActivity(vuexContext, activity) {
         const createdActivity = {
           ...activity,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.post() 新增資料
         axios
@@ -60,7 +58,7 @@ const createStore = () => {
       addCeremony(vuexContext, ceremony) {
         const createdCeremony = {
           ...ceremony,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.post() 新增資料
         axios
@@ -75,7 +73,7 @@ const createStore = () => {
       editedMeeting(vuexContext, meeting) {
         const newMeeting = {
           ...meeting,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         axios
           .put(
@@ -94,7 +92,7 @@ const createStore = () => {
       editedActivity(vuexContext, activity) {
         const newActivity = {
           ...activity,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -114,7 +112,7 @@ const createStore = () => {
       editedCeremony(vuexContext, ceremony) {
         const newCeremony = {
           ...ceremony,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -191,7 +189,7 @@ const createStore = () => {
       editedAccount(vuexContext, account) {
         const newaccount = {
           ...account,
-          updatedDate: newTime.getFullYear()+"/"+(newTime.getMonth()+1)+"/"+newTime.getDate()+" "+newTime.getHours()+":"+newTime.getMinutes()+":"+newTime.getSeconds(),
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -279,7 +277,7 @@ const createStore = () => {
           //*/
         }
         //expirationDate前的加號為「轉換成數字」用，等同於Number.parseInt() 
-        if (new Date().getTime() > +expirationDate /*|| !token*/) {
+        if (new Date().getTime() >= +expirationDate /*|| !token*/) {
           console.log('No token or invalid token');
           //若現在時間大於token的期滿日則清除token
           vuexContext.dispatch("logout")
