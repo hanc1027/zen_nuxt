@@ -84,11 +84,11 @@
                             cellpadding="4"
                             cellspacing="0"
                           >
-                            <tr>
+                            <!-- <tr>
                               <td valign="middle">
                                 <p>資料筆數：</p>
                               </td>
-                            </tr>
+                            </tr> -->
                           </table>
                           <p>&nbsp;</p>
                         </td>

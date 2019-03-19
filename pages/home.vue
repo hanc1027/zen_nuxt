@@ -57,11 +57,6 @@
               <i class="glyphicon glyphicon-info-sign"></i> 近期會議 / 活動 / 法訊
             </h2>
 
-            <div class="box-icon">
-              <a href class="btn btn-minimize btn-round btn-default">
-                <i class="glyphicon glyphicon-chevron-up"></i>
-              </a>
-            </div>
           </div>
           <div class="box-content row" style="overflow:scroll;height:400px;">
             <div class="col-lg-6 col-md-12">
