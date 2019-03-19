@@ -41,6 +41,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       addActivity(vuexContext, activity) {
+        let newTime = new Date();
         const createdActivity = {
           ...activity,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
@@ -56,6 +57,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       addCeremony(vuexContext, ceremony) {
+        let newTime = new Date();
         const createdCeremony = {
           ...ceremony,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
@@ -71,6 +73,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedMeeting(vuexContext, meeting) {
+         let newTime = new Date();
         const newMeeting = {
           ...meeting,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
@@ -90,6 +93,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedActivity(vuexContext, activity) {
+        let newTime = new Date();
         const newActivity = {
           ...activity,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
@@ -110,6 +114,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedCeremony(vuexContext, ceremony) {
+        let newTime = new Date();
         const newCeremony = {
           ...ceremony,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
@@ -187,6 +192,7 @@ const createStore = () => {
           });
       },
       editedAccount(vuexContext, account) {
+         let newTime = new Date();
         const newaccount = {
           ...account,
           updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
