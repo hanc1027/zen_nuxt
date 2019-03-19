@@ -77,7 +77,7 @@
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <center>
-                                    <div class="notYetSign" v-if="!isSign(key)">
+                                    <div class="notYetSign" v-if="today < new Date(meetinglist.date+' '+meetinglist.start_time).getTime()+1800000">
                                       <button
                                         class="btn btn-danger btn-sm"
                                         @click="signature(key,meetinglist)"
@@ -85,6 +85,7 @@
                                         <font color="white">簽到</font>
                                       </button>
                                     </div>
+                                    <div v-else>簽到時間已過</div>
                                   </center>
                                 </p>
                               </td>
@@ -165,31 +166,7 @@ export default {
       .catch(e => console.log(e));
   },
   methods: {
-    isSign(id) {
-      axios
-        .get("https://zen-nuxt.firebaseio.com/meeting_member_list.json")
-        .then(res => {
-          for (let key in res.data) {
-            console.log("Enter for")
-            console.log(res.data[key].name+"||"+Cookie.get("admName"))
-            console.log(res.data[key].meeting_id +"||"+id)
-            if (
-              res.data[key].name == Cookie.get("admName") &&
-              res.data[key].meeting_id == id
-            ) {
-              if (
-                res.data[key].mode == "onTime" ||
-                res.data[key].mode == "late"
-              ) {
-                console.log("return true")
-                return true;
-              }
-            }
-          }
-          console.log("return false")
-          return false;
-        });
-    },
+          
     getMeetingLen() {
       this.meeting_list_len = Object.keys(this.meeting_list).length;
     },
@@ -244,16 +221,12 @@ export default {
               mode: "onTime",
               sign_time: meetingSignTime
             };
-            if (this.isSign(id) != false) {
-              alert("已簽到。\n準時");
+            alert("已簽到。\n準時");
               axios.post(
                 "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
                   Cookie.get("jwt"),
                 list
-              );
-            }else {
-              alert("您已簽到過！")
-            }
+            );
           } else if (now > meeting_start && now < meeting_end) {
             var list = {
               name: Cookie.get("admName"),
@@ -266,16 +239,12 @@ export default {
               mode: "late",
               sign_time: meetingSignTime
             };
-           if (this.isSign(id) != false) {
-              alert("已簽到。\n遲到");
+            alert("已簽到。\n遲到");
               axios.post(
                 "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
                   Cookie.get("jwt"),
                 list
               );
-            }else {
-              alert("您已簽到過！")
-            }
           }
           /** 計算會議時間  eno **/
         });

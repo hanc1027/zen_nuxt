@@ -67,7 +67,7 @@ export default {
     onLogout() {
       alert("您已登出。");
       this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$router.replace("/");
     }
   },
   mounted() {
