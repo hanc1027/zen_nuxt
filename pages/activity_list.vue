@@ -16,7 +16,7 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href>中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
             <a href>活動列表</a>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="box-content">
-              <nuxt-link class="btn btn-default btn-sm" to="add-activity">
+              <nuxt-link class="btn btn-default btn-sm" to="/add-activity">
                 <i class="glyphicon glyphicon-plus"></i> 新增活動
               </nuxt-link>
               <table width="780" border="0" align="center" cellpadding="4" cellspacing="0">
@@ -79,7 +79,7 @@
                             <tr v-for="(actli,key,id) in activity_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                  <nuxt-link :to="{path:'activity-list-update',query:{id:key}}">修改</nuxt-link>
+                                  <nuxt-link :to="{path:'/activity-list-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
                                   <a href @click="deleteActivity(key)">刪除</a>
                                 </p>
@@ -115,16 +115,6 @@
                             <tr>
                               <td valign="middle">
                                 <p>活動總數：</p>
-                              </td>
-
-                              <td align="right">
-                                <p>
-                                  <a href>第一頁</a> |
-                                  <a href>上一頁</a>
-                                  |
-                                  <a href>下一頁</a> |
-                                  <a href>最末頁</a>
-                                </p>
                               </td>
                             </tr>
                           </table>

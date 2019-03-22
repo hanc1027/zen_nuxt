@@ -5,13 +5,13 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="signature">會議簽到</nuxt-link>
+            <nuxt-link to="/signature">會議簽到</nuxt-link>
           </li>
           <li>
-            <a href="">幹部簽到</a>
+            <a href>幹部簽到</a>
           </li>
         </ul>
       </div>
@@ -42,22 +42,34 @@
                           >
                             <tr>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <center><p>簽到</p></center>
+                                <center>
+                                  <p>簽到</p>
+                                </center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <center><p>會議名稱</p></center>
+                                <center>
+                                  <p>會議名稱</p>
+                                </center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                               <center> <p>會議地點</p></center>
+                                <center>
+                                  <p>會議地點</p>
+                                </center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <center><p>會議日期</p></center>
+                                <center>
+                                  <p>會議日期</p>
+                                </center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <center><p>開始時間</p></center>
+                                <center>
+                                  <p>開始時間</p>
+                                </center>
                               </th>
                               <th width="15%" align="center" bgcolor="#CCCCCC">
-                                <center><p>結束時間</p></center>
+                                <center>
+                                  <p>結束時間</p>
+                                </center>
                               </th>
                             </tr>
 
@@ -65,7 +77,18 @@
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <center>
-                                    <button class="btn btn-danger btn-sm"><font color="white">簽到</font></button>
+                                    <div
+                                      class="notYetSign"
+                                      v-if="today < new Date(meetinglist.date+' '+meetinglist.start_time).getTime()+1800000"
+                                    >
+                                      <button
+                                        class="btn btn-danger btn-sm"
+                                        @click="signature(key,meetinglist)"
+                                      >
+                                        <font color="white">簽到</font>
+                                      </button>
+                                    </div>
+                                    <div v-else>簽到時間已過</div>
                                   </center>
                                 </p>
                               </td>
@@ -98,14 +121,6 @@
                               <td valign="middle">
                                 <p>會議總數：{{meeting_list_len}}</p>
                               </td>
-                              <td align="right">
-                                <p>
-                                  <a href="">第一頁</a> |
-                                  <a href="">上一頁</a> |
-                                  <a href="">下一頁</a> |
-                                  <a href="">最末頁</a>
-                                </p>
-                              </td>
                             </tr>
                           </table>
                           <p>&nbsp;</p>
@@ -128,16 +143,22 @@
 
 <script>
 import axios from "axios";
+import Cookie from "js-cookie";
 
 export default {
   name: "app",
   data() {
     return {
-      meeting_list_len:Number
+      meeting_list_len: "",
+      today: new Date().getTime(),
+      cc: 0
     };
   },
   layout: "fun_page",
-  asyncData(context) {
+  mounted() {
+    this.meeting_list_len = Object.keys(this.meeting_list).length;
+  },
+  asyncData() {
     return axios
       .get("https://zen-nuxt.firebaseio.com/meeting_list.json")
       .then(res => {
@@ -145,13 +166,95 @@ export default {
           meeting_list: res.data
         };
       })
-      .catch(e => context.error(e));
+      .catch(e => console.log(e));
   },
-  mounted(){
-      this.meeting_list_len =  Object.keys(this.meeting_list).length
+  methods: {
+    getMeetingLen() {
+      this.meeting_list_len = Object.keys(this.meeting_list).length;
+    },
+    signature(id, meeting) {
+      axios
+        .get("https://zen-nuxt.firebaseio.com/meeting_list/" + id + ".json")
+        .then(res => {
+          var start = res.data.date + " " + res.data.start_time;
+          var end = res.data.date + " " + res.data.end_time;
+          var meeting_start = new Date(start).getTime();
+          var meeting_end = new Date(end).getTime();
+
+          var now = new Date().getTime();
+          let newTime = new Date();
+          let meetingSignTime =
+            newTime.getFullYear() +
+            "/" +
+            (newTime.getMonth() + 1) +
+            "/" +
+            newTime.getDate() +
+            " " +
+            newTime.getHours() +
+            ":" +
+            newTime.getMinutes() +
+            ":" +
+            newTime.getSeconds();
+          axios.get("");
+          if (now > meeting_end) {
+            alert("時間已超過，不可簽到");
+          } else if ((meeting_start - now) / 60000 > 30) {
+            var hour = Math.floor((meeting_start - now) / 3600000);
+            var min = Math.round((meeting_start - now) / 60000 - hour * 60);
+            alert(
+              "會議前三十分鐘才可進行簽到。\n距離此會議還有" +
+                hour +
+                "小時" +
+                min +
+                "分。"
+            );
+          } else if (
+            (meeting_start - now) / 60000 < 30 &&
+            (meeting_start - now) / 60000 >= 0
+          ) {
+            var list = {
+              name: Cookie.get("admName"),
+              fahao: Cookie.get("admFahao"),
+              school: Cookie.get("admSchool"),
+              cadre: Cookie.get("admCadre"),
+              department: Cookie.get("admDepartment"),
+              grade: Cookie.get("admGrade"),
+              meeting_id: id,
+              mode: "onTime",
+              sign_time: meetingSignTime
+            };
+            alert("已簽到。\n準時");
+            axios.post(
+              "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                Cookie.get("jwt"),
+              list
+            );
+          } else if (now > meeting_start && now < meeting_end) {
+            var list = {
+              name: Cookie.get("admName"),
+              fahao: Cookie.get("admFahao"),
+              school: Cookie.get("admSchool"),
+              cadre: Cookie.get("admCadre"),
+              department: Cookie.get("admDepartment"),
+              grade: Cookie.get("admGrade"),
+              meeting_id: id,
+              mode: "late",
+              sign_time: meetingSignTime
+            };
+            alert("已簽到。\n遲到");
+            axios.post(
+              "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                Cookie.get("jwt"),
+              list
+            );
+          }
+          /** 計算會議時間  eno **/
+        });
+    }
   }
 };
 </script>
 
 <style scoped>
 </style>
+ 

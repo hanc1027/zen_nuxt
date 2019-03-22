@@ -4,8 +4,8 @@
             <!-- content starts -->
         <div>
     <ul class="breadcrumb">
-        <li><a href="">中區禪悅社</a></li>
-        <li><a href="">中區活動執事分配-表格建立</a></li>
+        <li><nuxt-link to="/home">中區禪悅社</nuxt-link><li>
+        <li><a href>中區活動執事分配-表格建立</a></li>
     </ul>
 </div>
 

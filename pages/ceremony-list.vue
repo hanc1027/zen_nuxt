@@ -5,7 +5,7 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href>中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
             <a href>法會列表</a>
@@ -95,14 +95,6 @@
                             <tr>
                               <td valign="middle">
                                 <p>法會總數：</p>
-                              </td>
-                              <td align="right">
-                                <p>
-                                  <a href>第一頁</a> |
-                                  <a href>上一頁</a> |
-                                  <a href>下一頁</a> |
-                                  <a href>最末頁</a>
-                                </p>
                               </td>
                             </tr>
                           </table>

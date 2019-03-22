@@ -22,13 +22,14 @@ const createStore = () => {
       setLoginOut(state) {
         state.logout = !state.logout
       },
-     
+
     },
     actions: {
       addMeeting(vuexContext, meeting) {
+        let newTime = new Date();
         const createdMeeting = {
           ...meeting,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         axios
           .post("https://zen-nuxt.firebaseio.com/meeting_list.json?auth=" + vuexContext.state.token,
@@ -40,9 +41,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       addActivity(vuexContext, activity) {
+        let newTime = new Date();
         const createdActivity = {
           ...activity,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.post() 新增資料
         axios
@@ -55,9 +57,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       addCeremony(vuexContext, ceremony) {
+        let newTime = new Date();
         const createdCeremony = {
           ...ceremony,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.post() 新增資料
         axios
@@ -70,9 +73,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedMeeting(vuexContext, meeting) {
+         let newTime = new Date();
         const newMeeting = {
           ...meeting,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         axios
           .put(
@@ -89,9 +93,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedActivity(vuexContext, activity) {
+        let newTime = new Date();
         const newActivity = {
           ...activity,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -109,9 +114,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editedCeremony(vuexContext, ceremony) {
+        let newTime = new Date();
         const newCeremony = {
           ...ceremony,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -159,8 +165,8 @@ const createStore = () => {
       },
       addMember(vuexContext, memeber) {
         var today = new Date()
-        var today_Date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" "
-        +today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+        var today_Date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " "
+          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         const createdMember = {
           ...memeber,
           joinDate: today_Date,
@@ -175,20 +181,21 @@ const createStore = () => {
           })
           .catch(e => console.log(e));
       },
-      delete_admin(vuexContext,id){
+      delete_admin(vuexContext, id) {
         axios
-        .delete(
-          "https://zen-nuxt.firebaseio.com/admin_member/" + id + ".json?auth=" +
-          vuexContext.state.token
-        )
-        .then(() => {
-          location.reload();
-        });
+          .delete(
+            "https://zen-nuxt.firebaseio.com/admin_member/" + id + ".json?auth=" +
+            vuexContext.state.token
+          )
+          .then(() => {
+            location.reload();
+          });
       },
       editedAccount(vuexContext, account) {
+         let newTime = new Date();
         const newaccount = {
           ...account,
-          updatedDate: new Date()
+          updatedDate: newTime.getFullYear() + "/" + (newTime.getMonth() + 1) + "/" + newTime.getDate() + " " + newTime.getHours() + ":" + newTime.getMinutes() + ":" + newTime.getSeconds(),
         };
         //axios.put() 修改資料
         axios
@@ -220,7 +227,7 @@ const createStore = () => {
       //   vuexContext.commit("setLists", lists);
       // },
       authenticateUser(vuexContext, authData) {
-        
+
         let authUrl =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
           process.env.fbAPIKey;
@@ -234,13 +241,15 @@ const createStore = () => {
             vuexContext.commit("setToken", result.idToken);
             //設定客戶端儲存token和token的期滿
             //防止token在每次頁面更新時都會變成null
-            localStorage.setItem("mainEmail",authData.email)
+            //*
+            localStorage.setItem("mainEmail", authData.email)
             localStorage.setItem("token", result.idToken);
             localStorage.setItem(
               "tokenExpiration", //expiresIn是firebase email auth原本的參數
               new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
             );
-            Cookie.set("mainEmail",authData.email)
+            //*/
+            Cookie.set("mainEmail", authData.email)
             Cookie.set("jwt", result.idToken)
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
@@ -268,11 +277,13 @@ const createStore = () => {
 
         } else {
           //從客戶端(localStorage)取得兩變數
+          //*
           token = localStorage.getItem("token");
           expirationDate = localStorage.getItem("tokenExpiration");
+          //*/
         }
         //expirationDate前的加號為「轉換成數字」用，等同於Number.parseInt() 
-        if (new Date().getTime() > +expirationDate /*|| !token*/) {
+        if (new Date().getTime() >= +expirationDate /*|| !token*/) {
           console.log('No token or invalid token');
           //若現在時間大於token的期滿日則清除token
           vuexContext.dispatch("logout")
@@ -285,13 +296,26 @@ const createStore = () => {
       logout(vuexContext) {
         vuexContext.commit("setLoginOut");
         vuexContext.commit('clearToken');
-        
+
         Cookie.remove('mainEmail');
+        Cookie.remove('admId');
+        Cookie.remove('admName');
+        Cookie.remove('admFahao');
+        Cookie.remove('admDepartment');
+        Cookie.remove('admGrade');
+        Cookie.remove('admSchool');
+        Cookie.remove('admCadre');
+        Cookie.remove('admGroup1');
+        Cookie.remove('admGroup2');
+        Cookie.remove('admGroup3');
+
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
+        //*
         localStorage.removeItem('mainEmail');
         localStorage.removeItem('token');
         localStorage.removeItem('tokenExpiration');
+        //*/
       }
     },
     getters: {

@@ -6,10 +6,10 @@
         &copy;
         <a href="https://www.facebook.com/centralzenjoy/" target="_blank">中區禪悅社</a> 2018
       </p>
-      <p class="col-md-3 col-sm-3 col-xs-12 powered-by">
+      <!-- <p class="col-md-3 col-sm-3 col-xs-12 powered-by">
         Maintained by:
         <a href="https://www.facebook.com/nelsonhsu1027" target="_blank">Han C</a>
-      </p>
+      </p> -->
     </div>
   </div>
 </template>
