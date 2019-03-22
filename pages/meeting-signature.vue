@@ -5,7 +5,7 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href>中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
             <nuxt-link to="/signature">會議簽到</nuxt-link>
@@ -77,7 +77,10 @@
                               <td width="15%" align="center" bgcolor="#FFFFFF">
                                 <p>
                                   <center>
-                                    <div class="notYetSign" v-if="today < new Date(meetinglist.date+' '+meetinglist.start_time).getTime()+1800000">
+                                    <div
+                                      class="notYetSign"
+                                      v-if="today < new Date(meetinglist.date+' '+meetinglist.start_time).getTime()+1800000"
+                                    >
                                       <button
                                         class="btn btn-danger btn-sm"
                                         @click="signature(key,meetinglist)"
@@ -166,7 +169,6 @@ export default {
       .catch(e => console.log(e));
   },
   methods: {
-          
     getMeetingLen() {
       this.meeting_list_len = Object.keys(this.meeting_list).length;
     },
@@ -222,10 +224,10 @@ export default {
               sign_time: meetingSignTime
             };
             alert("已簽到。\n準時");
-              axios.post(
-                "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
-                  Cookie.get("jwt"),
-                list
+            axios.post(
+              "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                Cookie.get("jwt"),
+              list
             );
           } else if (now > meeting_start && now < meeting_end) {
             var list = {
@@ -240,11 +242,11 @@ export default {
               sign_time: meetingSignTime
             };
             alert("已簽到。\n遲到");
-              axios.post(
-                "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
-                  Cookie.get("jwt"),
-                list
-              );
+            axios.post(
+              "https://zen-nuxt.firebaseio.com/meeting_member_list.json?auth=" +
+                Cookie.get("jwt"),
+              list
+            );
           }
           /** 計算會議時間  eno **/
         });

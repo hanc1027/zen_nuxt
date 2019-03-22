@@ -5,10 +5,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-           <a> 中區禪悅社</a>
+           <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
-            <a>帳號管理</a>
+            <a href>帳號管理</a>
           </li>
         </ul>
       </div>
@@ -57,7 +57,7 @@
                             <tr v-for="(adm,key) in admin_list" :id="key">
                               <td width="10%" align="center" bgcolor="#FFFFFF">
                                 <p>
-                                   <nuxt-link :to="{path:'account-update',query:{id:key}}">修改</nuxt-link>
+                                   <nuxt-link :to="{path:'/account-update',query:{id:key}}">修改</nuxt-link>
                                   <br>
                                   <a href @click="deleteAdmin(key)">刪除</a>
                                 </p>

@@ -7,7 +7,7 @@
         <ul class="nav nav-pills nav-stacked main-menu">
           <li class="nav-header">選單</li>
           <li>
-            <nuxt-link class="ajax-link" to="home">
+            <nuxt-link class="ajax-link" to="/home">
               <i class="glyphicon glyphicon-home"></i>
               <span>主頁面</span>
             </nuxt-link>
@@ -19,13 +19,13 @@
             </nuxt-link>
           </li> -->
           <li>
-            <nuxt-link class="ajax-link" to="signature">
+            <nuxt-link class="ajax-link" to="/signature">
               <i class="glyphicon glyphicon-edit"></i>
               <span>會議簽到</span>
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link class="ajax-link" to="central-org">
+            <nuxt-link class="ajax-link" to="/central-org">
               <i class="glyphicon glyphicon-bookmark"></i>
               <span>中區組織</span>
             </nuxt-link>
@@ -37,13 +37,13 @@
             </nuxt-link>
           </li> -->
           <li>
-            <nuxt-link class="ajax-link" to="faq">
+            <nuxt-link class="ajax-link" to="/faq">
               <i class="glyphicon glyphicon-question-sign"></i>
               <span>Q&A</span>
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link class="ajax-link" to="member-data">
+            <nuxt-link class="ajax-link" to="/member-data">
               <i class="glyphicon glyphicon-user"></i>
               <span>社員資料</span>
             </nuxt-link>
@@ -53,7 +53,7 @@
 
           
               <li>
-                <nuxt-link to="activity-enroll">
+                <nuxt-link to="/activity-enroll">
                   <i class="glyphicon glyphicon-pencil"></i>
                   <span>活動報名系統</span></nuxt-link>
               </li>
@@ -62,11 +62,11 @@
               </li> -->
           
               <li>
-                <nuxt-link to="register"><i class="glyphicon glyphicon-plus"></i>
+                <nuxt-link to="/register"><i class="glyphicon glyphicon-plus"></i>
                 <span>註冊系統</span></nuxt-link>
               </li>
               <li>
-                <nuxt-link to="account"><i class="glyphicon glyphicon-list"></i>
+                <nuxt-link to="/account"><i class="glyphicon glyphicon-list"></i>
                 <span>帳號管理</span></nuxt-link>
               </li>
         </ul>

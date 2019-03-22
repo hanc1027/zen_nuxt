@@ -1,27 +1,31 @@
 <template>
-       <div>
-        <div id="content" class="col-lg-10 col-sm-10">
-            <!-- content starts -->
-        <div>
+  <div>
+    <div id="content" class="col-lg-10 col-sm-10">
+      <!-- content starts -->
+      <div>
         <ul class="breadcrumb">
-        <li><a href="">中區禪悅社</a></li>
-        <li><a href="">個人資料</a></li>
+          <li>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
+          </li>
+          <li>
+            <a href>個人資料</a>
+          </li>
         </ul>
         <profileForm/>
-        </div>
-        </div>
-</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import profileForm from "@/components/forms/profileForm"
+import profileForm from "@/components/forms/profileForm";
 export default {
   name: "app",
   data() {
     return {};
   },
-  components:{
-      profileForm
+  components: {
+    profileForm
   },
   layout: "fun_page"
 };

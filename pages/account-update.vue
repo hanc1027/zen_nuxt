@@ -4,7 +4,7 @@
     <div>
       <ul class="breadcrumb">
         <li>
-          <a href>中區禪悅社</a>
+          <nuxt-link to="/home">中區禪悅社</nuxt-link>
         </li>
         <li>
           <a href>帳號修改</a>
@@ -48,7 +48,7 @@ export default {
       )
       .then(res => {
         return {
-          loadedAdmin: {...res.data, id: context.params.postId }
+          loadedAdmin: { ...res.data, id: context.params.postId }
         };
       })
       .catch(e => context.error());

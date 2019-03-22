@@ -5,10 +5,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href>中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
-            <a href="ceremony-list">法會列表</a>
+            <nuxt-link to="/ceremony-list">法會列表</nuxt-link>
           </li>
           <li>
             <a href>法會更新</a>

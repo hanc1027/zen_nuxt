@@ -5,10 +5,10 @@
       <div>
         <ul class="breadcrumb">
           <li>
-            <a href="">中區禪悅社</a>
+            <nuxt-link to="/home">中區禪悅社</nuxt-link>
           </li>
           <li>
-            <a href="">行事曆</a>
+            <a href>行事曆</a>
           </li>
         </ul>
       </div>
@@ -35,17 +35,13 @@
 </template>
 
 <script>
-
 export default {
   name: "app",
-  components: {
-    
+  components: {},
+  data() {
+    return {};
   },
-  data(){
-    return{
-    }
-  },
-  layout:'fun_page'
+  layout: "fun_page"
 };
 </script>
 
