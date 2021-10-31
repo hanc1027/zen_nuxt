@@ -80,6 +80,17 @@ export default {
   },
   methods: {
     onSubmit() {
+      const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+      //  const emailRule = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
+
+      if (this.email == "") {
+        alert("請輸入Email")
+      } else if (!emailRule.test(this.email)){
+        alert("請輸入正確的Email格式")
+      } else if (this.password == "") {
+        alert("請輸入密碼")
+      }
       this.$store
         .dispatch("authenticateUser", {
           isLogin: this.isLogin,
