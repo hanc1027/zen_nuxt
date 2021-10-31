@@ -40,6 +40,9 @@
         </li>
       </ul>
     </div>
+      <li>
+            <a href @click="onLogout">登出</a>
+          </li>
   </div>
   <!-- topbar ends -->
 </template>

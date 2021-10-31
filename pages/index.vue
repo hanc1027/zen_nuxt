@@ -101,7 +101,7 @@ export default {
           this.$router.push("home");
         });
       if (!this.$store.getters.isAuthenticated) {
-        this.isShow = true;
+        this.isShow = false;
       }
     },
   },
