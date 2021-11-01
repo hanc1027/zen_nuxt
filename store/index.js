@@ -253,7 +253,7 @@ const createStore = () => {
             Cookie.set("jwt", result.idToken)
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
           })
-          .catch(e => console.log(e));
+          .catch(e => console.log("auth error:",e));
 
       },
       initAuth(vuexContext, req) {

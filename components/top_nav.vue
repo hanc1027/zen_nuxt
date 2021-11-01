@@ -40,9 +40,6 @@
         </li>
       </ul>
     </div>
-      <li>
-            <a href @click="onLogout">登出</a>
-          </li>
   </div>
   <!-- topbar ends -->
 </template>
@@ -62,6 +59,7 @@ export default {
       axios
         .get("https://zen-nuxt.firebaseio.com/admin_member/"+Cookie.get('admId')+".json")
         .then(res => {
+          console.log("res data2:",res.data)
           this.adm_username = res.data.name;
         })
         .catch(e => console.log(e));

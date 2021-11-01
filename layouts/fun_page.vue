@@ -24,8 +24,9 @@ export default {
   methods: {
     getAdminId() {
       axios
-        .get("https://zen-nuxt.firebaseio.com/zen-nuxt/admin_member.json")
+        .get("https://zen-nuxt.firebaseio.com/admin_member.json")
         .then(res => {
+          console.log("res data1:",res.data)
           for (var fireBaseId in res.data) {
             if (Cookie.get("mainEmail") == res.data[fireBaseId].email) {
               Cookie.set("admId", fireBaseId);

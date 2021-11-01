@@ -99,7 +99,7 @@ export default {
         })
         .then(() => {
           this.$router.push("home");
-        });
+        })
       if (!this.$store.getters.isAuthenticated) {
         this.isShow = false;
       }
