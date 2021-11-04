@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import Cookie from "js-cookie";
+
 export default {
   head() {
     return {
@@ -114,7 +116,7 @@ export default {
             date: "",
             start_time: "",
             end_time: "",
-            who_add: ""
+            who_add:Cookie.get("admName")
           }
     };
   },

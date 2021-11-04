@@ -114,7 +114,7 @@
                           >
                             <tr>
                               <td valign="middle">
-                                <p>活動總數：</p>
+                                <p>活動總數：{{activity_list_len}}</p>
                               </td>
                             </tr>
                           </table>
@@ -151,6 +151,11 @@ export default {
       })
       .catch(e => context.error(e));
   },
+  data(){
+    return{
+      activity_list_len:""
+    }
+  },
   methods: {
     deleteActivity(dataId) {
       var confirmDel = confirm(
@@ -160,7 +165,10 @@ export default {
         this.$store.dispatch("delete_activity", dataId);
       }
     }
-  }
+  },
+  mounted() {
+    this.activity_list_len = Object.keys(this.activity_list).length;
+  },
 };
 </script>
 

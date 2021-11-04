@@ -29,16 +29,6 @@
                 <i class="glyphicon glyphicon-plus"></i> 新增會議
               </nuxt-link>
               <form style="float:right" onSubmit="return checkMeetingSearch();">
-                <!-- 還須製作checkMeetingSearch()函式 -->
-                <input
-                  name="meeting_search"
-                  id="meeting_search"
-                  type="text"
-                  class="form-control"
-                  placeholder="會議名稱搜尋"
-                >
-                <input name="action" type="hidden" id="action" value="find">
-                <!-- <button type="submit" class="btn btn-default">提交</button> -->
               </form>
             </div>
             <br>
@@ -114,14 +104,14 @@
                                   <p>
                                     <a href>
                                       <nuxt-link :to="{path:'meeting-member-list',query:{id:key}}">
-                                        <button class="btn btn-default btn-sm">查看</button>
+                                        <!-- <button class="btn btn-default btn-sm">查看</button> -->
                                       </nuxt-link>
                                     </a>
                                   </p>
                                 </center>
                               </td>
                               <td width="10%" align="center" bgcolor="#FFFFFF">
-                                <p></p>
+                                <p>{{meeting.who_add}}</p>
                               </td>
                             </tr>
                           </table>
@@ -180,7 +170,6 @@ export default {
   },
   mounted() {
     this.meeting_list_len = Object.keys(this.meeting_list).length;
-    this.getMeetingNum();
   },
   methods: {
     deleteMeeting(dataId) {

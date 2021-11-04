@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import addMeetingForm from "@/components/forms/addMeetingForm";
 
 export default {

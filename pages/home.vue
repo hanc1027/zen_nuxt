@@ -113,7 +113,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Cookie from "js-cookie";
 
 export default {
@@ -145,21 +144,6 @@ export default {
       this.admin_list.group2 = Cookie.get("admGroup2");
     }
   },
-  /*
-  asyncData({ contexts }) {
-    console.log("Enter asy")
-    return {
-      admin_list: {
-        school: Cookie.get("admSchool"),
-        department: Cookie.get("admDepartment"),
-        grade: Cookie.get("admGrade"),
-        cadre: Cookie.get("admCadre"),
-        group1: Cookie.get("admGroup1"),
-        group2: Cookie.get("admGroup2")
-      }
-    };
-  },
-  //*/
   mounted() {
     this.getData();
   }

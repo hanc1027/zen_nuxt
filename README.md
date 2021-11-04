@@ -1,6 +1,7 @@
 # zen-nuxt
 
-> My perfect Nuxt.js project
+## Demo
+- 建議使用Chrome開啟
 
 ## Build Setup
 
