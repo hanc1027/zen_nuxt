@@ -35,6 +35,8 @@ $ npm run generate
 <img src="assets/06_sign_list.png" width="500"><br>
 <img src="assets/09_signing_list.png" width="500"><br>
 <img src="assets/10_member_list.png" width="500"><br>
+<img src="assets/12_activities_list.png" width="500"><br>
+<img src="assets/13_ceremony_list.png" width="500"><br>
 <img src="assets/11_logout.png" width="500"><br>
 
 - Sign alert<br>
