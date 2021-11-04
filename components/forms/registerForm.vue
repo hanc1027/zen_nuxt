@@ -11,7 +11,7 @@
           <div class="box-content">
             <br>
 
-            <label class="control-label" >姓名</label>
+            <label class="control-label" >*姓名</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user blue"></i>
@@ -27,7 +27,7 @@
             </div>
             <br>
 
-            <label class="control-label">帳號 (電子郵件)</label>
+            <label class="control-label">*帳號 (電子郵件)</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-envelope red"></i>
@@ -45,7 +45,7 @@
 
             <br>
 
-            <label class="control-label">密碼 (6至20個字元)</label>
+            <label class="control-label">*密碼 (6至20個字元)</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-lock balck"></i>
@@ -64,7 +64,7 @@
             </div>
             <br>
 
-            <label class="control-label">確認密碼</label>
+            <label class="control-label">*確認密碼</label>
             <div class="input-group col-md-4">
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-hand-right green"></i>
@@ -121,7 +121,7 @@
             </div>
             <br>
 
-            <label class="control-label">科系</label>
+            <label class="control-label">*科系</label>
             <br>
             <span class="label label-primary">科系請使用簡稱，例如：資訊管理學系 -> 資管</span>
             <div class="input-group col-md-4">
@@ -229,7 +229,7 @@
             </div>
 
             <font color="red">
-              <i>P.s.以上資料全為必填</i>
+              <i>P.s.以上*字號資料全為必填</i>
             </font>
             <br>
             <br>
