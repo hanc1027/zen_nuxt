@@ -1,4 +1,5 @@
 # zen-nuxt
+中區禪悅社幹部系統
 
 ## Demo
 - 建議使用Chrome開啟
