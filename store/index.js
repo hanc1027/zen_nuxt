@@ -2,6 +2,27 @@ import Vuex from "vuex";
 import axios from "axios";
 import Cookie from "js-cookie"
 
+function getAdminId(email) {
+  axios
+    .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+    .then(res => {
+      for (var fireBaseId in res.data) {
+        if (email == res.data[fireBaseId].email) {
+          Cookie.set("admId", fireBaseId);
+          Cookie.set("admName", res.data[fireBaseId].name);
+          Cookie.set("admFahao", res.data[fireBaseId].fahao);
+          Cookie.set("admDepartment", res.data[fireBaseId].department);
+          Cookie.set("admGrade", res.data[fireBaseId].grade);
+          Cookie.set("admSchool", res.data[fireBaseId].school);
+          Cookie.set("admCadre", res.data[fireBaseId].cadre);
+          Cookie.set("admGroup1", res.data[fireBaseId].group1);
+          Cookie.set("admGroup2", res.data[fireBaseId].group2);
+          Cookie.set("admGroup3", res.data[fireBaseId].group3);
+        }
+      }
+    });
+}
+
 const createStore = () => {
   return new Vuex.Store({
     state: {
@@ -229,8 +250,9 @@ const createStore = () => {
       authenticateUser(vuexContext, authData) {
 
         let authUrl =
-          "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
-          process.env.fbAPIKey;
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + process.env.fbAPIKey;
+
+
         return this.$axios
           .$post(authUrl, {
             email: authData.email,
@@ -252,8 +274,13 @@ const createStore = () => {
             Cookie.set("mainEmail", authData.email)
             Cookie.set("jwt", result.idToken)
             Cookie.set("expirationDate", new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
+
+            getAdminId(authData.email)
           })
-          .catch(e => console.log("auth error:",e));
+          .catch(e => {
+              console.log(e.response.data.error.message)
+              alert("登入失敗")
+          });
 
       },
       initAuth(vuexContext, req) {
