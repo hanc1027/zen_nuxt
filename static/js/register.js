@@ -41,7 +41,7 @@ function check_passwd(pw1, pw2) {
 			return false;
 		}
 		if (pw1 != pw2) {
-			alert("密碼二次輸入不一樣,請重新輸入 !\n");
+			alert("密碼兩次輸入不一樣,請重新輸入 !\n");
 			return false;
 		}
 	}

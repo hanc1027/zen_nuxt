@@ -94,7 +94,7 @@
                           >
                             <tr>
                               <td valign="middle">
-                                <p>法會總數：</p>
+                                <p>法會總數：{{ceremony_list_len}}</p>
                               </td>
                             </tr>
                           </table>
@@ -121,6 +121,11 @@ import axios from "axios";
 export default {
   name: "app",
   layout: "fun_page",
+   data(){
+    return{
+      ceremony_list_len:""
+    }
+  },
   asyncData(context) {
     return axios
       .get("https://zen-nuxt.firebaseio.com/ceremony_list.json")
@@ -140,7 +145,10 @@ export default {
        this.$store.dispatch("delete_ceremony", dataId);
       }
     }
-  }
+  },
+  mounted() {
+    this.ceremony_list_len = Object.keys(this.ceremony_list).length;
+  },
 };
 </script>
 
