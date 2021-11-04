@@ -69,6 +69,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookie from "js-cookie";
+
 export default {
   data() {
     return {
@@ -79,10 +82,29 @@ export default {
     };
   },
   methods: {
+    getAdminId(email) {
+    axios
+    .get("https://zen-nuxt.firebaseio.com/admin_member.json")
+    .then(res => {
+      for (var fireBaseId in res.data) {
+        if (email == res.data[fireBaseId].email) {
+          Cookie.set("admId", fireBaseId);
+          Cookie.set("admName", res.data[fireBaseId].name);
+          Cookie.set("admFahao", res.data[fireBaseId].fahao);
+          Cookie.set("admDepartment", res.data[fireBaseId].department);
+          Cookie.set("admGrade", res.data[fireBaseId].grade);
+          Cookie.set("admSchool", res.data[fireBaseId].school);
+          Cookie.set("admCadre", res.data[fireBaseId].cadre);
+          Cookie.set("admGroup1", res.data[fireBaseId].group1);
+          Cookie.set("admGroup2", res.data[fireBaseId].group2);
+          Cookie.set("admGroup3", res.data[fireBaseId].group3);
+        }
+      }
+      this.$router.push("home");
+    });
+  },
     onSubmit() {
       const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-
-      //  const emailRule = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
 
       if (this.email == "") {
         alert("請輸入Email")
@@ -98,7 +120,7 @@ export default {
           password: this.password
         })
         .then(() => {
-          this.$router.push("home");
+          this.getAdminId(this.email)
         })
       if (!this.$store.getters.isAuthenticated) {
         this.isShow = false;
