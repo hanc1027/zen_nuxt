@@ -2,7 +2,10 @@ const pkg = require('./package')
 
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
+  router: {
+    base: "/ZenJoy/"
+  },
   env: {
     fbAPIKey: "AIzaSyAOzccuLBhNT5d3YJZ0NckZ7iAUswIY07Q"
   },
@@ -104,6 +107,6 @@ module.exports = {
     extend(config, ctx) {
 
     },
-    vendor: ['external_library'] //讓alert可以使用，因為nuxt是server-side rendering，但alert是瀏覽器的api
+    vendor: ['external_library'], //讓alert可以使用，因為nuxt是server-side rendering，但alert是瀏覽器的api
   }
 }

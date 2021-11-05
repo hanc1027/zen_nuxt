@@ -242,7 +242,7 @@ const createStore = () => {
             vuexContext.commit("setToken", result.idToken);
             //設定客戶端儲存token和token的期滿
             //防止token在每次頁面更新時都會變成null
-            //*
+            /*
             localStorage.setItem("mainEmail", authData.email)
             localStorage.setItem("token", result.idToken);
             localStorage.setItem(
@@ -281,10 +281,13 @@ const createStore = () => {
 
         } else {
           //從客戶端(localStorage)取得兩變數
-          //*
+          /*
           token = localStorage.getItem("token");
           expirationDate = localStorage.getItem("tokenExpiration");
           //*/
+
+          token = Cookie.get("jwt")
+          expirationDate = Cookie.get("expirationDate")
         }
         //expirationDate前的加號為「轉換成數字」用，等同於Number.parseInt() 
         if (new Date().getTime() >= +expirationDate /*|| !token*/) {
@@ -315,7 +318,7 @@ const createStore = () => {
 
         Cookie.remove('jwt');
         Cookie.remove('expirationDate');
-        //*
+        /*
         localStorage.removeItem('mainEmail');
         localStorage.removeItem('token');
         localStorage.removeItem('tokenExpiration');
